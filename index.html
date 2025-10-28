@@ -5,16 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>THE ART OF WEB — Home</title>
   <link href="styles.css" rel="stylesheet">
-  
-  <!-- Google Fonts for Arabic -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-
   <style>
-    body.arabic { 
-      font-family: 'Cairo', sans-serif; 
-    }
+    body.arabic { font-family: 'Cairo', sans-serif; }
 
-    /* Extra mobile adjustments */
     @media (max-width: 900px) {
       .hero-left, .hero-right { flex: 1 1 100%; }
       .story-images { flex-direction: column; align-items: center; }
@@ -26,10 +20,7 @@
     }
 
     /* Language switch inside nav */
-    .lang-switch {
-      display: inline-flex;
-      gap: 5px;
-    }
+    .lang-switch { display: inline-flex; gap: 5px; }
     .lang-switch button {
       padding: 5px 10px;
       border: 1px solid #333;
@@ -39,15 +30,42 @@
       border-radius: 4px;
       transition: 0.2s;
     }
-    .lang-switch button:hover {
-      background: #333;
-      color: #fff;
+    .lang-switch button:hover { background: #333; color: #fff; }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center; align-items: center;
     }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn { from { transform: translateY(-50px); opacity:0;} to { transform:translateY(0); opacity:1;} }
+    .modal-content h2 { margin-bottom:20px; text-align:center;}
+    .modal-content .field { margin-bottom:15px;}
+    .modal-content input { width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;}
+    .modal-content button { width:100%; padding:12px; border:none; border-radius:6px; background:#f6b042; color:#fff; font-weight:bold; cursor:pointer; }
+    .modal-content button:hover { background:#e59c00; }
+    .modal-content .switch { margin-top:10px; text-align:center; font-size:14px; cursor:pointer; color:#007bff; }
+    .modal-content .switch:hover { text-decoration:underline; }
+    .close-modal { position:absolute; right:15px; top:10px; font-size:24px; cursor:pointer; color:#555; }
   </style>
 </head>
 <body>
 
-<!-- Header -->
 <header class="header fade-in">
   <div class="container">
     <div class="logo">
@@ -59,6 +77,7 @@
       <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
       <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
       <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+      <span id="user-menu"></span>
       <span class="lang-switch">
         <button id="lang-en">EN</button>
         <button id="lang-ar">AR</button>
@@ -67,7 +86,6 @@
   </div>
 </header>
 
-<!-- Hero Section -->
 <section class="hero">
   <div class="container">
     <div class="hero-left fade-in">
@@ -86,65 +104,51 @@
   </div>
 </section>
 
-<!-- Story Section -->
-<section class="story fade-in">
-  <div class="container">
-    <div>
-      <h2 data-en="Our Company Story" data-ar="قصة شركتنا">Our Company Story</h2>
-      <p data-en="THE ART OF WEB is a boutique studio specializing in web and app development. We help startups and businesses build modern digital products."
-         data-ar="THE ART OF WEB هي استوديو متخصص في تطوير المواقع والتطبيقات. نحن نساعد الشركات الناشئة والشركات على بناء منتجات رقمية حديثة.">
-        THE ART OF WEB is a boutique studio specializing in web and app development. We help startups and businesses build modern digital products.
-      </p>
+<!-- Modal -->
+<div class="modal" id="auth-modal">
+  <div class="modal-content">
+    <span class="close-modal" id="close-modal">&times;</span>
+
+    <!-- Login -->
+    <div id="login-form">
+      <h2>Login</h2>
+      <div class="field"><input type="text" id="login-username" placeholder="Email or Username"></div>
+      <div class="field"><input type="password" id="login-password" placeholder="Password"></div>
+      <div class="switch" id="forgot-pass">Forgot Password?</div>
+      <button id="login-btn">Login</button>
+      <div class="switch" id="show-signup">Don't have an account? Sign Up</div>
     </div>
-    <div class="story-images">
-      <img src="hero-image6.png" alt="Team member working" style="max-width:100%;height:auto;">
+
+    <!-- Sign Up -->
+    <div id="signup-form" style="display:none;">
+      <h2>Sign Up</h2>
+      <div class="field"><input type="text" id="signup-username" placeholder="Username"></div>
+      <div class="field"><input type="email" id="signup-email" placeholder="Email"></div>
+      <div class="field"><input type="email" id="signup-confirm-email" placeholder="Confirm Email"></div>
+      <div class="field"><input type="password" id="signup-password" placeholder="Password"></div>
+      <div class="field"><input type="password" id="signup-confirm-password" placeholder="Confirm Password"></div>
+      <button id="signup-btn">Sign Up</button>
+      <div class="switch" id="show-login">Already have an account? Login</div>
     </div>
-  </div>
-</section>
 
-<!-- Packs Section -->
-<section class="packs fade-in">
-  <div class="container">
-    <h3 data-en="Popular Packs — Ready to Start" data-ar="الباقات الشهيرة — جاهزة للبدء">Popular Packs — Ready to Start</h3>
-    <div class="pack-grid">
-
-      <div class="pack fade-in">
-        <h4 data-en="Starter Website Pack" data-ar="باقة الموقع المبتدئ">Starter Website Pack</h4>
-        <div class="price">2000 MAD</div>
-        <ul>
-          <li data-en="Up to 5 pages" data-ar="حتى 5 صفحات">Up to 5 pages</li>
-          <li data-en="Responsive design" data-ar="تصميم متجاوب">Responsive design</li>
-          <li data-en="Contact form" data-ar="نموذج تواصل">Contact form</li>
-        </ul>
-        <a class="btn-inline" href="checkout.html?pack=starter" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
-      </div>
-
-      <div class="pack fade-in">
-        <h4 data-en="Business Website Pack" data-ar="باقة موقع الأعمال">Business Website Pack</h4>
-        <div class="price">5500 MAD</div>
-        <ul>
-          <li data-en="Custom design" data-ar="تصميم مخصص">Custom design</li>
-          <li data-en="CMS integration" data-ar="تكامل CMS">CMS integration</li>
-        </ul>
-        <a class="btn-inline" href="checkout.html?pack=business" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
-      </div>
-
-    </div>
-    <div style="margin-top:18px">
-      <a class="cta" href="packs.html" data-en="Show More Packs" data-ar="عرض المزيد من الباقات">Show More Packs</a>
+    <!-- Reset Password -->
+    <div id="reset-form" style="display:none;">
+      <h2>Reset Password</h2>
+      <div class="field"><input type="email" id="reset-email" placeholder="Enter your registered email"></div>
+      <button id="reset-btn">Send Reset Link</button>
+      <div class="switch" id="back-to-login">Back to Login</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- Footer -->
 <footer class="footer fade-in">
   <div class="container">
     <div class="col">
       <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
       <p>
-        <a href="https://instagram.com/@the.art.of.web" target="_blank" rel="noopener">INSTAGRAM</a><br>
+        <a href="https://instagram.com/@the.art.of.web" target="_blank">INSTAGRAM</a><br>
         <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
-        <a href="https://wa.me/+212682935120" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://wa.me/+212682935120" target="_blank">WhatsApp</a>
       </p>
       <div style="text-align:center; margin-top:20px; color:#d7d7d7; font-size:14px;">
         &copy; 2025 THE ART OF WEB. All rights reserved.
@@ -153,37 +157,133 @@
   </div>
 </footer>
 
-<!-- Language Switch Script -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
-const langEnBtn = document.getElementById("lang-en");
-const langArBtn = document.getElementById("lang-ar");
+  emailjs.init("LUva89Ktxhzp_pdRq");
 
-// Apply language on page load from localStorage
-function applySavedLanguage() {
+  const langEnBtn = document.getElementById("lang-en");
+  const langArBtn = document.getElementById("lang-ar");
+  function setLanguage(lang){
+    document.documentElement.lang=lang;
+    document.body.classList.remove("arabic");
+    if(lang==="ar") document.body.classList.add("arabic");
+    document.querySelectorAll("[data-en]").forEach(el=>{
+      el.textContent = lang==="en"? el.dataset.en : el.dataset.ar;
+    });
+    localStorage.setItem("siteLang",lang);
+  }
   const savedLang = localStorage.getItem("siteLang") || "en";
   setLanguage(savedLang);
-}
+  langEnBtn.addEventListener("click",()=>setLanguage("en"));
+  langArBtn.addEventListener("click",()=>setLanguage("ar"));
 
-// Set language and save selection
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.body.classList.remove("arabic");
-  if(lang === "ar") document.body.classList.add("arabic");
-  
-  document.querySelectorAll("[data-en]").forEach(el=>{
-    el.textContent = lang==="en" ? el.dataset.en : el.dataset.ar;
+  // Auth modal
+  const userMenu=document.getElementById("user-menu");
+  const authModal=document.getElementById("auth-modal");
+  const closeModal=document.getElementById("close-modal");
+  const loginForm=document.getElementById("login-form");
+  const signupForm=document.getElementById("signup-form");
+  const resetForm=document.getElementById("reset-form");
+  const showSignup=document.getElementById("show-signup");
+  const showLogin=document.getElementById("show-login");
+  const forgotPass=document.getElementById("forgot-pass");
+  const backToLogin=document.getElementById("back-to-login");
+
+  function renderUserMenu(){
+    const user=JSON.parse(localStorage.getItem("loggedUser"));
+    if(user){
+      userMenu.innerHTML=`<span>Hello, ${user.username}</span> | <a href="#" id="logout">Logout</a>`;
+      document.getElementById("logout").addEventListener("click",()=>{
+        localStorage.removeItem("loggedUser");
+        renderUserMenu();
+      });
+    } else {
+      userMenu.innerHTML=`<a href="#" id="login-link">Login / Sign Up</a>`;
+      document.getElementById("login-link").addEventListener("click",()=>{
+        authModal.classList.add("active");
+        loginForm.style.display="block";
+        signupForm.style.display="none";
+        resetForm.style.display="none";
+      });
+    }
+  }
+  renderUserMenu();
+  closeModal.addEventListener("click",()=>authModal.classList.remove("active"));
+  showSignup.addEventListener("click",()=>{
+    loginForm.style.display="none";
+    signupForm.style.display="block";
+    resetForm.style.display="none";
   });
-  
-  localStorage.setItem("siteLang", lang); // Save selection
-}
+  showLogin.addEventListener("click",()=>{
+    loginForm.style.display="block";
+    signupForm.style.display="none";
+    resetForm.style.display="none";
+  });
 
-// Button clicks
-langEnBtn.addEventListener("click", ()=>setLanguage("en"));
-langArBtn.addEventListener("click", ()=>setLanguage("ar"));
+  // Login
+  document.getElementById("login-btn").addEventListener("click",()=>{
+    const username=document.getElementById("login-username").value.trim();
+    const password=document.getElementById("login-password").value.trim();
+    const users=JSON.parse(localStorage.getItem("signupUsers")||"[]");
+    const user=users.find(u=>(u.username===username||u.email===username)&&u.password===password);
+    if(user){
+      localStorage.setItem("loggedUser",JSON.stringify(user));
+      authModal.classList.remove("active");
+      renderUserMenu();
+      alert("Logged in successfully!");
+    } else alert("Invalid credentials.");
+  });
 
-// Initialize on page load
-applySavedLanguage();
+  // Sign Up
+  document.getElementById("signup-btn").addEventListener("click",()=>{
+    const username=document.getElementById("signup-username").value.trim();
+    const email=document.getElementById("signup-email").value.trim();
+    const confirmEmail=document.getElementById("signup-confirm-email").value.trim();
+    const password=document.getElementById("signup-password").value.trim();
+    const confirmPassword=document.getElementById("signup-confirm-password").value.trim();
+
+    if(!username||!email||!confirmEmail||!password||!confirmPassword){alert("Please fill all fields."); return;}
+    if(email!==confirmEmail){alert("Emails do not match."); return;}
+    if(password!==confirmPassword){alert("Passwords do not match."); return;}
+    if(!/^(?=.*[0-9])(?=.{8,})/.test(password)){alert("Password must be 8+ chars with a number."); return;}
+
+    let users=JSON.parse(localStorage.getItem("signupUsers")||"[]");
+    if(users.find(u=>u.email===email)){alert("Email already registered."); return;}
+    const newUser={username,email,password};
+    users.push(newUser);
+    localStorage.setItem("signupUsers",JSON.stringify(users));
+    localStorage.setItem("loggedUser",JSON.stringify(newUser));
+    authModal.classList.remove("active");
+    renderUserMenu();
+    alert("Signed up successfully!");
+  });
+
+  // Forgot Password
+  forgotPass.addEventListener("click",()=>{
+    loginForm.style.display="none";
+    signupForm.style.display="none";
+    resetForm.style.display="block";
+  });
+  backToLogin.addEventListener("click",()=>{
+    resetForm.style.display="none";
+    loginForm.style.display="block";
+  });
+  document.getElementById("reset-btn").addEventListener("click",()=>{
+    const email=document.getElementById("reset-email").value.trim();
+    if(!email){alert("Please enter your email."); return;}
+    emailjs.send("service_qzps9pc","template_2rgjans",{
+      user_name:email,
+      user_email:email,
+      reset_link:`https://theartofweb.vercel.app/reset-password.html?email=${encodeURIComponent(email)}`,
+      support_email:"theartofwebsupp@gmail.com"
+    })
+    .then(()=>{
+      alert("✅ Password reset email sent! Check your inbox.");
+      resetForm.style.display="none";
+      loginForm.style.display="block";
+    })
+    .catch(()=>alert("⚠️ Error sending email. Try again later."));
+  });
 </script>
-
 </body>
 </html>
