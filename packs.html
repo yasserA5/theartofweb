@@ -44,7 +44,6 @@
       <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
       <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
       <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
-      <!-- Language switch buttons inside nav next to Contact -->
       <span class="lang-switch">
         <button id="lang-en">EN</button>
         <button id="lang-ar">AR</button>
@@ -80,7 +79,7 @@
       <!-- Starter Pack -->
       <div class="pack fade-in">
         <h4 data-en="Starter Website Pack" data-ar="باقة الموقع المبتدئ">Starter Website Pack</h4>
-        <div class="price">2750 MAD</div>
+        <div class="price">2000 MAD</div>
         <ul>
           <li data-en="Up to 5 pages" data-ar="حتى 5 صفحات">Up to 5 pages</li>
           <li data-en="Responsive design" data-ar="تصميم متجاوب">Responsive design</li>
@@ -92,7 +91,7 @@
       <!-- Business Pack -->
       <div class="pack fade-in">
         <h4 data-en="Business Website Pack" data-ar="باقة موقع الأعمال">Business Website Pack</h4>
-        <div class="price">7150 MAD</div>
+        <div class="price">5500 MAD</div>
         <ul>
           <li data-en="Custom design" data-ar="تصميم مخصص">Custom design</li>
           <li data-en="CMS integration" data-ar="تكامل CMS">CMS integration</li>
@@ -103,7 +102,7 @@
       <!-- Mobile App Pack -->
       <div class="pack fade-in">
         <h4 data-en="Mobile App Pack (iOS & Android)" data-ar="باقة تطبيقات الموبايل (iOS & Android)">Mobile App Pack (iOS & Android)</h4>
-        <div class="price">77000 MAD</div>
+        <div class="price">55000 MAD</div>
         <ul>
           <li data-en="iOS & Android app" data-ar="تطبيق iOS & Android">iOS & Android app</li>
           <li data-en="Backend & Admin Panel" data-ar="الواجهة الخلفية ولوحة التحكم">Backend & Admin Panel</li>
@@ -115,7 +114,7 @@
       <!-- Advanced Web Pack -->
       <div class="pack fade-in">
         <h4 data-en="Advanced Web Pack" data-ar="باقة الويب المتقدمة">Advanced Web Pack</h4>
-        <div class="price">13200 MAD</div>
+        <div class="price">9000 MAD</div>
         <ul>
           <li data-en="Up to 15 pages" data-ar="حتى 15 صفحة">Up to 15 pages</li>
           <li data-en="Custom animations & effects" data-ar="الرسوم المتحركة والتأثيرات المخصصة">Custom animations & effects</li>
@@ -128,7 +127,7 @@
       <!-- Enterprise App Pack -->
       <div class="pack fade-in">
         <h4 data-en="Enterprise App Pack" data-ar="باقة تطبيقات الشركات">Enterprise App Pack</h4>
-        <div class="price">132000 MAD</div>
+        <div class="price">95000 MAD</div>
         <ul>
           <li data-en="iOS & Android app" data-ar="تطبيق iOS & Android">iOS & Android app</li>
           <li data-en="Admin dashboard" data-ar="لوحة تحكم الإدارة">Admin dashboard</li>
@@ -176,15 +175,31 @@
 const langEnBtn = document.getElementById("lang-en");
 const langArBtn = document.getElementById("lang-ar");
 
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-en]").forEach(el=>{
-    el.textContent = lang==="en" ? el.dataset.en : el.dataset.ar;
-  });
+// Load language from localStorage on page load
+function applySavedLanguage() {
+  const savedLang = localStorage.getItem("siteLang") || "en";
+  setLanguage(savedLang);
 }
 
-langEnBtn.addEventListener("click", ()=>setLanguage("en"));
-langArBtn.addEventListener("click", ()=>setLanguage("ar"));
+// Set language and save selection
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.body.classList.remove("arabic");
+  if(lang === "ar") document.body.classList.add("arabic");
+
+  document.querySelectorAll("[data-en]").forEach(el => {
+    el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
+  });
+
+  localStorage.setItem("siteLang", lang);
+}
+
+// Add button click events
+langEnBtn.addEventListener("click", () => setLanguage("en"));
+langArBtn.addEventListener("click", () => setLanguage("ar"));
+
+// Initialize language on page load
+applySavedLanguage();
 </script>
 
 </body>

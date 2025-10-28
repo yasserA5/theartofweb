@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>THE ART OF WEB — Checkout</title>
   <link href="styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; transition: font 0.2s ease; }
+    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+
+    /* Mobile adjustments */
+    @media (max-width: 900px) {
+      .checkout .card { width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .cta { padding: 8px 16px; font-size: 14px; }
+    }
+
+    /* Language buttons */
+    .lang-switch button {
+      padding: 4px 8px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
@@ -15,10 +35,14 @@
       <div style="font-size:1.2rem;font-weight:bold;">THE ART OF WEB</div>
     </div>
     <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="packs.html">Packs</a>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+      <span class="lang-switch">
+        <button id="lang-en">EN</button>
+        <button id="lang-ar">AR</button>
+      </span>
     </nav>
   </div>
 </header>
@@ -26,48 +50,51 @@
 <section class="checkout fade-in">
   <div class="container">
     <div class="card">
-      <h2>Checkout</h2>
-      <p>Fill in your details and select the pack you want to order.</p>
+      <h2 data-en="Checkout" data-ar="الدفع">Checkout</h2>
+      <p data-en="Fill in your details and select the pack you want to order." data-ar="املأ بياناتك واختر الباقة التي تريد طلبها.">
+        Fill in your details and select the pack you want to order.
+      </p>
 
       <!-- Customer Information -->
       <div class="field">
-        <label for="name">Full Name</label>
+        <label for="name" data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
         <input type="text" id="name" placeholder="John Doe" required>
       </div>
 
       <div class="field">
-        <label for="email">Email</label>
+        <label for="email" data-en="Email" data-ar="البريد الإلكتروني">Email</label>
         <input type="email" id="email" placeholder="you@example.com" required>
       </div>
 
       <div class="field">
-        <label for="phone">Phone Number</label>
+        <label for="phone" data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</label>
         <input type="tel" id="phone" placeholder="+212 6XX XXX XXX" required>
       </div>
 
       <!-- Pack Selection -->
-    <div class="field">
-  <label for="pack">Select Pack</label>
-  <select id="pack">
-    <option value="starter">Starter Website Pack — 2750 MAD</option>
-    <option value="business">Business Website Pack — 7150 MAD</option>
-    <option value="mobile">Mobile App Pack — 77000 MAD</option>
-    <option value="advanced">Advanced Web Pack — 13200 MAD</option>
-    <option value="enterprise">Enterprise App Pack — 132000 MAD</option>
-    <option value="custom">Custom Pack — Contact Us</option>
-  </select>
-</div>
-
+      <div class="field">
+        <label for="pack" data-en="Select Pack" data-ar="اختر الباقة">Select Pack</label>
+        <select id="pack">
+          <option value="starter" data-en="Starter Website Pack — 2000 MAD" data-ar="باقة الموقع المبتدئ — 2000 MAD">Starter Website Pack — 2000 MAD</option>
+          <option value="business" data-en="Business Website Pack — 5500 MAD" data-ar="باقة موقع الأعمال — 5500 MAD">Business Website Pack — 5500 MAD</option>
+          <option value="mobile" data-en="Mobile App Pack — 55000 MAD" data-ar="باقة تطبيقات الموبايل — 55000 MAD">Mobile App Pack — 55000 MAD</option>
+          <option value="advanced" data-en="Advanced Web Pack — 9000 MAD" data-ar="باقة الويب المتقدمة — 9000 MAD">Advanced Web Pack — 9000 MAD</option>
+          <option value="enterprise" data-en="Enterprise App Pack — 95000 MAD" data-ar="باقة تطبيقات الشركات — 95000 MAD">Enterprise App Pack — 95000 MAD</option>
+          <option value="custom" data-en="Custom Pack — Contact Us" data-ar="باقة مخصصة — اتصل بنا">Custom Pack — Contact Us</option>
+        </select>
+      </div>
 
       <!-- Price Summary -->
       <div class="field">
-        <label>Price</label>
+        <label data-en="Price" data-ar="السعر">Price</label>
         <div id="price" style="font-weight:800;color:#f6b042;font-size:18px;">250$</div>
       </div>
 
       <!-- Payment Button -->
-      <button class="cta" id="checkout-button">Proceed to Payment</button>
-      <p class="small">*Clicking will open WhatsApp to complete your payment.</p>
+      <button class="cta" id="checkout-button" data-en="Proceed to Payment" data-ar="المتابعة للدفع">Proceed to Payment</button>
+      <p class="small" data-en="*Clicking will open WhatsApp to complete your payment." data-ar="*بالضغط سيفتح WhatsApp لإكمال الدفع.">
+        *Clicking will open WhatsApp to complete your payment.
+      </p>
     </div>
   </div>
 </section>
@@ -75,22 +102,24 @@
 <footer class="footer fade-in">
   <div class="container">
     <div class="col">
-      <h4>Connect with Us</h4>
+      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
       <p>
         <a href="https://instagram.com/@the.art.of.web" target="_blank">INSTAGRAM</a><br>
         <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
-        <a href="https://wa.me/212XXXXXXXXX" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/+212682935120" target="_blank">WhatsApp</a>
       </p>
     </div>
     <div class="col">
-      <h4>Payments</h4>
-      <p>Visa & Mastercard only</p>
+      <h4 data-en="Payments" data-ar="طرق الدفع">Payments</h4>
+      <p data-en="Visa & Mastercard only" data-ar="Visa & Mastercard فقط">Visa & Mastercard only</p>
     </div>
   </div>
 </footer>
 
-<!-- WhatsApp Payment Logic -->
+<!-- Scripts -->
 <script>
+const langEnBtn = document.getElementById("lang-en");
+const langArBtn = document.getElementById("lang-ar");
 const packSelect = document.getElementById("pack");
 const priceDiv = document.getElementById("price");
 const checkoutBtn = document.getElementById("checkout-button");
@@ -103,13 +132,34 @@ const priceMap = {
   enterprise: 12000
 };
 
+// Language handling
+function applySavedLanguage() {
+  const savedLang = localStorage.getItem("siteLang") || "en";
+  setLanguage(savedLang);
+}
+
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.body.classList.remove("arabic");
+  if(lang === "ar") document.body.classList.add("arabic");
+
+  document.querySelectorAll("[data-en]").forEach(el => {
+    el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
+  });
+
+  localStorage.setItem("siteLang", lang);
+}
+
+langEnBtn.addEventListener("click", () => setLanguage("en"));
+langArBtn.addEventListener("click", () => setLanguage("ar"));
+applySavedLanguage();
+
 // Update price dynamically
 function updatePrice() {
   const pack = packSelect.value;
   const amount = priceMap[pack] || 0;
   priceDiv.textContent = amount > 0 ? amount + "$" : "Contact Us";
 }
-
 packSelect.addEventListener("change", updatePrice);
 updatePrice(); // initialize on load
 
@@ -131,7 +181,6 @@ checkoutBtn.addEventListener("click", () => {
     `Hello, I want to order the ${pack} pack.\nPrice: ${amount}$\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`
   );
 
-  // Replace XXXXXXXXX with your Moroccan number
   window.open(`https://wa.me/+212682935120?text=${message}`, "_blank");
 });
 </script>

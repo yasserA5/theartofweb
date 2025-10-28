@@ -44,7 +44,6 @@
       <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
       <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
       <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
-      <!-- Language switch buttons inside nav next to Contact -->
       <span class="lang-switch">
         <button id="lang-en">EN</button>
         <button id="lang-ar">AR</button>
@@ -113,15 +112,31 @@
 const langEnBtn = document.getElementById("lang-en");
 const langArBtn = document.getElementById("lang-ar");
 
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-en]").forEach(el=>{
-    el.textContent = lang==="en" ? el.dataset.en : el.dataset.ar;
-  });
+// Load saved language on page load
+function applySavedLanguage() {
+  const savedLang = localStorage.getItem("siteLang") || "en";
+  setLanguage(savedLang);
 }
 
-langEnBtn.addEventListener("click", ()=>setLanguage("en"));
-langArBtn.addEventListener("click", ()=>setLanguage("ar"));
+// Set language and save to localStorage
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.body.classList.remove("arabic");
+  if(lang === "ar") document.body.classList.add("arabic");
+
+  document.querySelectorAll("[data-en]").forEach(el => {
+    el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
+  });
+
+  localStorage.setItem("siteLang", lang);
+}
+
+// Add button click events
+langEnBtn.addEventListener("click", () => setLanguage("en"));
+langArBtn.addEventListener("click", () => setLanguage("ar"));
+
+// Apply saved language when page loads
+applySavedLanguage();
 </script>
 
 </body>
