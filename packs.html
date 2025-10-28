@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>THE ART OF WEB — Packs</title>
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; transition: font 0.2s ease; }
+    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+
+    /* Mobile adjustments */
+    @media (max-width: 900px) {
+      .hero-left, .hero-right { flex: 1 1 100%; }
+      .pack-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 26px; }
+      .btn-inline { padding: 8px 16px; font-size: 14px; }
+    }
+
+    .hero-right img { max-width: 100%; height: auto; display: block; }
+
+    /* Language buttons */
+    .lang-switch button {
+      padding: 4px 8px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header fade-in">
+  <div class="container">
+    <div class="logo">
+      <img src="images/logo.png" alt="THE ART OF WEB Logo">
+      <div>THE ART OF WEB</div>
+    </div>
+    <nav class="nav">
+      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+      <!-- Language switch buttons inside nav next to Contact -->
+      <span class="lang-switch">
+        <button id="lang-en">EN</button>
+        <button id="lang-ar">AR</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-left fade-in">
+      <h1 class="hero-title" data-en="Choose the Perfect Pack for Your Business" data-ar="اختر الباقة المثالية لأعمالك">
+        Choose the Perfect Pack for Your Business
+      </h1>
+      <p class="hero-sub" data-en="Ready-to-start website and app packs. Payments accepted: Visa & Mastercard." 
+         data-ar="باقات جاهزة للموقع والتطبيق. الدفع ببطاقات Visa & Mastercard.">
+        Ready-to-start website and app packs. Payments accepted: Visa & Mastercard.
+      </p>
+    </div>
+    <div class="hero-right fade-in">
+      <img src="hero-image2.png" alt="Business growth illustration">
+    </div>
+  </div>
+</section>
+
+<!-- Packs Grid -->
+<section class="packs fade-in">
+  <div class="container">
+    <h3 data-en="All Available Packs" data-ar="جميع الباقات المتاحة">All Available Packs</h3>
+    <div class="pack-grid">
+
+      <!-- Starter Pack -->
+      <div class="pack fade-in">
+        <h4 data-en="Starter Website Pack" data-ar="باقة الموقع المبتدئ">Starter Website Pack</h4>
+        <div class="price">2750 MAD</div>
+        <ul>
+          <li data-en="Up to 5 pages" data-ar="حتى 5 صفحات">Up to 5 pages</li>
+          <li data-en="Responsive design" data-ar="تصميم متجاوب">Responsive design</li>
+          <li data-en="Contact form" data-ar="نموذج تواصل">Contact form</li>
+        </ul>
+        <a class="btn-inline" href="checkout.html?pack=starter" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+      </div>
+
+      <!-- Business Pack -->
+      <div class="pack fade-in">
+        <h4 data-en="Business Website Pack" data-ar="باقة موقع الأعمال">Business Website Pack</h4>
+        <div class="price">7150 MAD</div>
+        <ul>
+          <li data-en="Custom design" data-ar="تصميم مخصص">Custom design</li>
+          <li data-en="CMS integration" data-ar="تكامل CMS">CMS integration</li>
+        </ul>
+        <a class="btn-inline" href="checkout.html?pack=business" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+      </div>
+
+      <!-- Mobile App Pack -->
+      <div class="pack fade-in">
+        <h4 data-en="Mobile App Pack (iOS & Android)" data-ar="باقة تطبيقات الموبايل (iOS & Android)">Mobile App Pack (iOS & Android)</h4>
+        <div class="price">77000 MAD</div>
+        <ul>
+          <li data-en="iOS & Android app" data-ar="تطبيق iOS & Android">iOS & Android app</li>
+          <li data-en="Backend & Admin Panel" data-ar="الواجهة الخلفية ولوحة التحكم">Backend & Admin Panel</li>
+          <li data-en="Custom design & development" data-ar="تصميم وتطوير مخصص">Custom design & development</li>
+        </ul>
+        <a class="btn-inline" href="checkout.html?pack=mobile" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+      </div>
+
+      <!-- Advanced Web Pack -->
+      <div class="pack fade-in">
+        <h4 data-en="Advanced Web Pack" data-ar="باقة الويب المتقدمة">Advanced Web Pack</h4>
+        <div class="price">13200 MAD</div>
+        <ul>
+          <li data-en="Up to 15 pages" data-ar="حتى 15 صفحة">Up to 15 pages</li>
+          <li data-en="Custom animations & effects" data-ar="الرسوم المتحركة والتأثيرات المخصصة">Custom animations & effects</li>
+          <li data-en="CMS & Blog integration" data-ar="تكامل CMS والمدونة">CMS & Blog integration</li>
+          <li data-en="SEO Optimization" data-ar="تحسين محركات البحث">SEO Optimization</li>
+        </ul>
+        <a class="btn-inline" href="checkout.html?pack=advanced" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+      </div>
+
+      <!-- Enterprise App Pack -->
+      <div class="pack fade-in">
+        <h4 data-en="Enterprise App Pack" data-ar="باقة تطبيقات الشركات">Enterprise App Pack</h4>
+        <div class="price">132000 MAD</div>
+        <ul>
+          <li data-en="iOS & Android app" data-ar="تطبيق iOS & Android">iOS & Android app</li>
+          <li data-en="Admin dashboard" data-ar="لوحة تحكم الإدارة">Admin dashboard</li>
+          <li data-en="Cloud integration & APIs" data-ar="تكامل السحابة وواجهات برمجة التطبيقات">Cloud integration & APIs</li>
+          <li data-en="Advanced analytics" data-ar="تحليلات متقدمة">Advanced analytics</li>
+        </ul>
+        <a class="btn-inline" href="checkout.html?pack=enterprise" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+      </div>
+
+      <!-- Custom Pack -->
+      <div class="pack fade-in">
+        <h4 data-en="Custom Pack" data-ar="باقة مخصصة">Custom Pack</h4>
+        <div class="price" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</div>
+        <ul>
+          <li data-en="Fully tailored web/app solution" data-ar="حلول ويب/تطبيقات مصممة خصيصاً">Fully tailored web/app solution</li>
+          <li data-en="You specify features" data-ar="تحدد الميزات">You specify features</li>
+          <li data-en="Direct consultation" data-ar="استشارة مباشرة">Direct consultation</li>
+        </ul>
+        <a class="btn-inline" href="contact.html" data-en="Create Your Pack" data-ar="أنشئ باقتك">Create Your Pack</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer fade-in">
+  <div class="container">
+    <div class="col">
+      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
+      <p>
+        <a href="https://instagram.com/@the.art.of.web" target="_blank" rel="noopener">INSTAGRAM</a><br>
+        <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
+        <a href="https://wa.me/+212682935120" target="_blank" rel="noopener">WhatsApp</a>
+      </p>
+      <div style="text-align:center; margin-top:20px; color:#d7d7d7; font-size:14px;">
+        &copy; 2025 THE ART OF WEB. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Language Switch Script -->
+<script>
+const langEnBtn = document.getElementById("lang-en");
+const langArBtn = document.getElementById("lang-ar");
+
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    el.textContent = lang==="en" ? el.dataset.en : el.dataset.ar;
+  });
+}
+
+langEnBtn.addEventListener("click", ()=>setLanguage("en"));
+langArBtn.addEventListener("click", ()=>setLanguage("ar"));
+</script>
+
+</body>
+</html>
