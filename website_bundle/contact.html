@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>THE ART OF WEB — Contact</title>
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; transition: font 0.2s ease; }
+    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+
+    /* Mobile adjustments */
+    @media (max-width: 900px) {
+      .hero-left, .hero-right { flex: 1 1 100%; }
+      .checkout .card { width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 26px; }
+      .cta { padding: 8px 16px; font-size: 14px; }
+    }
+
+    .hero-right img { max-width: 100%; height: auto; display: block; }
+
+    /* Language buttons */
+    .lang-switch button {
+      padding: 4px 8px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header fade-in">
+  <div class="container">
+    <div class="logo">
+      <img src="images/logo.png" alt="THE ART OF WEB Logo">
+      <div>THE ART OF WEB</div>
+    </div>
+    <nav class="nav">
+      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+      <!-- Language switch buttons inside nav next to Contact -->
+      <span class="lang-switch">
+        <button id="lang-en">EN</button>
+        <button id="lang-ar">AR</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-left fade-in">
+      <h1 class="hero-title" data-en="Get in Touch" data-ar="تواصل معنا">Get in Touch</h1>
+      <p class="hero-sub" data-en="Have a question or want a custom pack? Contact us directly via Instagram, Gmail, or WhatsApp."
+         data-ar="لديك سؤال أو تريد باقة مخصصة؟ تواصل معنا مباشرة عبر Instagram أو Gmail أو WhatsApp.">
+        Have a question or want a custom pack? Contact us directly via Instagram, Gmail, or WhatsApp.
+      </p>
+    </div>
+    <div class="hero-right fade-in">
+      <img src="hero-image5.png" alt="Contact illustration">
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form -->
+<section class="checkout fade-in">
+  <div class="container">
+    <div class="card">
+      <h2 data-en="Contact Form" data-ar="نموذج التواصل">Contact Form</h2>
+      <div class="field">
+        <label for="name" data-en="Name" data-ar="الاسم">Name</label>
+        <input type="text" id="name" placeholder="Your full name">
+      </div>
+      <div class="field">
+        <label for="email" data-en="Email" data-ar="البريد الإلكتروني">Email</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="message" data-en="Message" data-ar="الرسالة">Message</label>
+        <textarea id="message" rows="5" placeholder="Your message here"></textarea>
+      </div>
+      <a class="cta" href="mailto:theartofwebsupp@gmail.com" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer fade-in">
+  <div class="container">
+    <div class="col">
+      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
+      <p>
+        <a href="https://instagram.com/@the.art.of.web" target="_blank" rel="noopener">INSTAGRAM</a><br>
+        <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
+        <a href="https://wa.me/+212682935120" target="_blank" rel="noopener">WhatsApp</a>
+      </p>
+      <div style="text-align:center; margin-top:20px; color:#d7d7d7; font-size:14px;">
+        &copy; 2025 THE ART OF WEB. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Language Switch Script -->
+<script>
+const langEnBtn = document.getElementById("lang-en");
+const langArBtn = document.getElementById("lang-ar");
+
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    el.textContent = lang==="en" ? el.dataset.en : el.dataset.ar;
+  });
+}
+
+langEnBtn.addEventListener("click", ()=>setLanguage("en"));
+langArBtn.addEventListener("click", ()=>setLanguage("ar"));
+</script>
+
+</body>
+</html>

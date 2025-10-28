@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>THE ART OF WEB — Home</title>
+  <link href="styles.css" rel="stylesheet">
+  
+  <!-- Google Fonts for Arabic -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body.arabic { 
+      font-family: 'Cairo', sans-serif; 
+    }
+
+    /* Extra mobile adjustments */
+    @media (max-width: 900px) {
+      .hero-left, .hero-right { flex: 1 1 100%; }
+      .story-images { flex-direction: column; align-items: center; }
+      .pack-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 26px; }
+      .cta, .btn-inline { padding: 8px 16px; font-size: 14px; }
+    }
+
+    /* Language switch inside nav */
+    .lang-switch {
+      display: inline-flex;
+      gap: 5px;
+    }
+    .lang-switch button {
+      padding: 5px 10px;
+      border: 1px solid #333;
+      background: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 4px;
+      transition: 0.2s;
+    }
+    .lang-switch button:hover {
+      background: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header fade-in">
+  <div class="container">
+    <div class="logo">
+      <img src="images/logo.png" alt="THE ART OF WEB Logo">
+      <div>THE ART OF WEB</div>
+    </div>
+    <nav class="nav">
+      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+      <span class="lang-switch">
+        <button id="lang-en">EN</button>
+        <button id="lang-ar">AR</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-left fade-in">
+      <h1 class="hero-title" data-en="We build websites & apps that grow your business" data-ar="نحن نبني مواقع وتطبيقات تنمي أعمالك">We build websites & apps that grow your business</h1>
+      <p class="hero-sub" data-en="THE ART OF WEB — modern web and mobile development." data-ar="THE ART OF WEB — تطوير الويب والتطبيقات الحديثة.">THE ART OF WEB — modern web and mobile development.</p>
+      <a class="cta" href="packs.html" data-en="See Packs" data-ar="عرض الباقات">See Packs</a>
+      <a class="btn-inline" href="contact.html" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</a>
+    </div>
+    <div class="hero-right fade-in">
+      <img src="hero-image.png" alt="Team working on projects" style="max-width:100%;height:auto;">
+    </div>
+  </div>
+</section>
+
+<!-- Story Section -->
+<section class="story fade-in">
+  <div class="container">
+    <div>
+      <h2 data-en="Our Company Story" data-ar="قصة شركتنا">Our Company Story</h2>
+      <p data-en="THE ART OF WEB is a boutique studio specializing in web and app development. We help startups and businesses build modern digital products."
+         data-ar="THE ART OF WEB هي استوديو متخصص في تطوير المواقع والتطبيقات. نحن نساعد الشركات الناشئة والشركات على بناء منتجات رقمية حديثة.">
+        THE ART OF WEB is a boutique studio specializing in web and app development. We help startups and businesses build modern digital products.
+      </p>
+    </div>
+    <div class="story-images">
+      <img src="hero-image6.png" alt="Team member working" style="max-width:100%;height:auto;">
+    </div>
+  </div>
+</section>
+
+<!-- Packs Section -->
+<section class="packs fade-in">
+  <div class="container">
+    <h3 data-en="Popular Packs — Ready to Start" data-ar="الباقات الشهيرة — جاهزة للبدء">Popular Packs — Ready to Start</h3>
+    <div class="pack-grid">
+
+      <div class="pack fade-in">
+        <h4 data-en="Starter Website Pack" data-ar="باقة الموقع المبتدئ">Starter Website Pack</h4>
+        <div class="price">2750 MAD</div>
+        <ul>
+          <li data-en="Up to 5 pages" data-ar="حتى 5 صفحات">Up to 5 pages</li>
+          <li data-en="Responsive design" data-ar="تصميم متجاوب">Responsive design</li>
+          <li data-en="Contact form" data-ar="نموذج تواصل">Contact form</li>
+        </ul>
+        <a class="btn-inline" href="checkout.html?pack=starter" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+      </div>
+
+      <div class="pack fade-in">
+        <h4 data-en="Business Website Pack" data-ar="باقة موقع الأعمال">Business Website Pack</h4>
+        <div class="price">7150 MAD</div>
+        <ul>
+          <li data-en="Custom design" data-ar="تصميم مخصص">Custom design</li>
+          <li data-en="CMS integration" data-ar="تكامل CMS">CMS integration</li>
+        </ul>
+        <a class="btn-inline" href="checkout.html?pack=business" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+      </div>
+
+    </div>
+    <div style="margin-top:18px"><a class="cta" href="packs.html" data-en="Show More Packs" data-ar="عرض المزيد من الباقات">Show More Packs</a></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer fade-in">
+  <div class="container">
+    <div class="col">
+      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
+      <p>
+        <a href="https://instagram.com/@the.art.of.web" target="_blank" rel="noopener">INSTAGRAM</a><br>
+        <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
+        <a href="https://wa.me/+212682935120" target="_blank" rel="noopener">WhatsApp</a>
+      </p>
+      <div style="text-align:center; margin-top:20px; color:#d7d7d7; font-size:14px;">
+        &copy; 2025 THE ART OF WEB. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Language Switch Script -->
+<script>
+const langEnBtn = document.getElementById("lang-en");
+const langArBtn = document.getElementById("lang-ar");
+
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.body.classList.remove("arabic");
+  if(lang === "ar") document.body.classList.add("arabic");
+  
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    el.textContent = lang==="en" ? el.dataset.en : el.dataset.ar;
+  });
+}
+
+langEnBtn.addEventListener("click", ()=>setLanguage("en"));
+langArBtn.addEventListener("click", ()=>setLanguage("ar"));
+</script>
+
+</body>
+</html>

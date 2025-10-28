@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>THE ART OF WEB — About Us</title>
+  <link href="styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; transition: font 0.2s ease; }
+    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+
+    /* Mobile adjustments */
+    @media (max-width: 900px) {
+      .hero-left, .hero-right { flex: 1 1 100%; }
+      .story-images { flex-direction: column; align-items: center; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 26px; }
+    }
+
+    /* Contain images */
+    .hero-right img, .story-images img { max-width: 100%; height: auto; display: block; }
+
+    /* Language buttons */
+    .lang-switch button {
+      padding: 4px 8px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header fade-in">
+  <div class="container">
+    <div class="logo">
+      <img src="images/logo.png" alt="THE ART OF WEB Logo">
+      <div>THE ART OF WEB</div>
+    </div>
+    <nav class="nav">
+      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+      <!-- Language switch buttons inside nav next to Contact -->
+      <span class="lang-switch">
+        <button id="lang-en">EN</button>
+        <button id="lang-ar">AR</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-left fade-in">
+      <h1 class="hero-title" data-en="About THE ART OF WEB" data-ar="عن THE ART OF WEB">About THE ART OF WEB</h1>
+      <p class="hero-sub" data-en="We are a boutique studio specializing in modern web and app development. We help startups and businesses create digital products that grow."
+         data-ar="نحن استوديو متخصص في تطوير المواقع والتطبيقات الحديثة. نساعد الشركات الناشئة والشركات على إنشاء منتجات رقمية تنمو.">
+        We are a boutique studio specializing in modern web and app development. We help startups and businesses create digital products that grow.
+      </p>
+    </div>
+    <div class="hero-right fade-in">
+      <img src="hero-image3.png" alt="Team working on web projects">
+    </div>
+  </div>
+</section>
+
+<!-- Story / Mission -->
+<section class="story fade-in">
+  <div class="container">
+    <div>
+      <h2 data-en="Our Mission" data-ar="مهمتنا">Our Mission</h2>
+      <p data-en="Our mission is to deliver high-quality digital solutions that help businesses succeed online. We combine creativity, technology, and strategy to create effective websites and apps."
+         data-ar="مهمتنا هي تقديم حلول رقمية عالية الجودة تساعد الشركات على النجاح عبر الإنترنت. نجمع بين الإبداع والتقنية والاستراتيجية لإنشاء مواقع وتطبيقات فعالة.">
+        Our mission is to deliver high-quality digital solutions that help businesses succeed online. We combine creativity, technology, and strategy to create effective websites and apps.
+      </p>
+    </div>
+    <div class="story-images">
+      <img src="hero-image4.webp" alt="Team collaboration">
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer fade-in">
+  <div class="container">
+    <div class="col">
+      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
+      <p>
+        <a href="https://instagram.com/@the.art.of.web" target="_blank" rel="noopener">INSTAGRAM</a><br>
+        <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
+        <a href="https://wa.me/+212682935120" target="_blank" rel="noopener">WhatsApp</a>
+      </p>
+      <div style="text-align:center; margin-top:20px; color:#d7d7d7; font-size:14px;">
+        &copy; 2025 THE ART OF WEB. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Language Switch Script -->
+<script>
+const langEnBtn = document.getElementById("lang-en");
+const langArBtn = document.getElementById("lang-ar");
+
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    el.textContent = lang==="en" ? el.dataset.en : el.dataset.ar;
+  });
+}
+
+langEnBtn.addEventListener("click", ()=>setLanguage("en"));
+langArBtn.addEventListener("click", ()=>setLanguage("ar"));
+</script>
+
+</body>
+</html>

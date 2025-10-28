@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>THE ART OF WEB — Checkout</title>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+<header class="header fade-in">
+  <div class="container">
+    <div class="logo">
+      <img src="images/logo.png" alt="THE ART OF WEB Logo" style="max-height:140px;">
+      <div style="font-size:1.2rem;font-weight:bold;">THE ART OF WEB</div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="packs.html">Packs</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="checkout fade-in">
+  <div class="container">
+    <div class="card">
+      <h2>Checkout</h2>
+      <p>Fill in your details and select the pack you want to order.</p>
+
+      <!-- Customer Information -->
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="John Doe" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="+212 6XX XXX XXX" required>
+      </div>
+
+      <!-- Pack Selection -->
+    <div class="field">
+  <label for="pack">Select Pack</label>
+  <select id="pack">
+    <option value="starter">Starter Website Pack — 2750 MAD</option>
+    <option value="business">Business Website Pack — 7150 MAD</option>
+    <option value="mobile">Mobile App Pack — 77000 MAD</option>
+    <option value="advanced">Advanced Web Pack — 13200 MAD</option>
+    <option value="enterprise">Enterprise App Pack — 132000 MAD</option>
+    <option value="custom">Custom Pack — Contact Us</option>
+  </select>
+</div>
+
+
+      <!-- Price Summary -->
+      <div class="field">
+        <label>Price</label>
+        <div id="price" style="font-weight:800;color:#f6b042;font-size:18px;">250$</div>
+      </div>
+
+      <!-- Payment Button -->
+      <button class="cta" id="checkout-button">Proceed to Payment</button>
+      <p class="small">*Clicking will open WhatsApp to complete your payment.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer fade-in">
+  <div class="container">
+    <div class="col">
+      <h4>Connect with Us</h4>
+      <p>
+        <a href="https://instagram.com/@the.art.of.web" target="_blank">INSTAGRAM</a><br>
+        <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
+        <a href="https://wa.me/212XXXXXXXXX" target="_blank">WhatsApp</a>
+      </p>
+    </div>
+    <div class="col">
+      <h4>Payments</h4>
+      <p>Visa & Mastercard only</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Payment Logic -->
+<script>
+const packSelect = document.getElementById("pack");
+const priceDiv = document.getElementById("price");
+const checkoutBtn = document.getElementById("checkout-button");
+
+const priceMap = {
+  starter: 250,
+  business: 650,
+  mobile: 7000,
+  advanced: 1200,
+  enterprise: 12000
+};
+
+// Update price dynamically
+function updatePrice() {
+  const pack = packSelect.value;
+  const amount = priceMap[pack] || 0;
+  priceDiv.textContent = amount > 0 ? amount + "$" : "Contact Us";
+}
+
+packSelect.addEventListener("change", updatePrice);
+updatePrice(); // initialize on load
+
+// WhatsApp payment
+checkoutBtn.addEventListener("click", () => {
+  const pack = packSelect.value;
+  const amount = priceMap[pack] || "Contact Us";
+
+  if(pack === "custom") {
+    alert("Please contact us for a custom pack.");
+    return;
+  }
+
+  const name = document.getElementById("name").value || "[Your Name]";
+  const email = document.getElementById("email").value || "[Your Email]";
+  const phone = document.getElementById("phone").value || "[Your Phone]";
+
+  const message = encodeURIComponent(
+    `Hello, I want to order the ${pack} pack.\nPrice: ${amount}$\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`
+  );
+
+  // Replace XXXXXXXXX with your Moroccan number
+  window.open(`https://wa.me/+212682935120?text=${message}`, "_blank");
+});
+</script>
+
+</body>
+</html>
