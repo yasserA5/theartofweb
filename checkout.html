@@ -311,10 +311,10 @@ updateLanguage(savedLang);
 <script>emailjs.init("LUva89Ktxhzp_pdRq");</script>
 
 <script>
-const priceMap={starter:250,business:650,mobile:7000,advanced:1200,enterprise:12000};
+const priceMap={starter:2000,business:5500,mobile:55000,advanced:9000,enterprise:95000};
 const packSelect=document.getElementById("pack");
 const priceDiv=document.getElementById("price");
-function updatePrice(){const p=packSelect.value;priceDiv.textContent=priceMap[p]?priceMap[p]+"$":"Contact Us";}
+function updatePrice(){const p=packSelect.value;priceDiv.textContent=priceMap[p]?priceMap[p]+"MAD":"Contact Us";}
 packSelect.addEventListener("change",updatePrice);updatePrice();
 
 const checkoutBtn=document.getElementById("checkout-button");
