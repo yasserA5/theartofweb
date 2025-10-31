@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Account Settings — THE ART OF WEB</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        transition: font 0.3s ease;
+      }
+      html[lang="ar"] body {
+        font-family: "Cairo", sans-serif;
+      }
+
+      .settings-container {
+        max-width: 600px;
+        margin: 100px auto;
+        background: #1a1a1a;
+        color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .field {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #333;
+        border-radius: 5px;
+        background: #222;
+        color: #fff;
+      }
+      input:focus {
+        outline: none;
+        border-color: #f6b042;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      button,
+      a {
+        background: #f6b042;
+        color: #000;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        text-align: center;
+      }
+
+      button:hover,
+      a:hover {
+        background: #ffca58;
+      }
+
+      .lang-switch button {
+        padding: 4px 8px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header fade-in">
+      <div class="container">
+        <div class="logo">
+          <img
+            src="images/logo.png"
+            alt="THE ART OF WEB Logo"
+            style="max-height: 140px"
+          />
+          <div>THE ART OF WEB</div>
+        </div>
+        <nav class="nav">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+          <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+          <a href="contact.html" data-en="Contact" data-ar="اتصل بنا"
+            >Contact</a
+          >
+          <span class="lang-switch">
+            <button id="lang-en">EN</button>
+            <button id="lang-ar">AR</button>
+          </span>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Settings Section -->
+    <section class="settings fade-in">
+      <div class="settings-container">
+        <h2 data-en="Account Settings" data-ar="إعدادات الحساب">
+          Account Settings
+        </h2>
+
+        <div class="field">
+          <label for="fullname" data-en="Full Name" data-ar="الاسم الكامل"
+            >Full Name</label
+          >
+          <input type="text" id="fullname" placeholder="John Doe" />
+        </div>
+
+        <div class="field">
+          <label for="email" data-en="Email" data-ar="البريد الإلكتروني"
+            >Email</label
+          >
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+
+        <div class="field">
+          <label for="password" data-en="Password" data-ar="كلمة المرور"
+            >Password</label
+          >
+          <input type="password" id="password" placeholder="••••••••" />
+        </div>
+
+        <div class="actions">
+          <button id="save-btn" data-en="Save Changes" data-ar="حفظ التغييرات">
+            Save Changes
+          </button>
+          <a
+            href="account.html"
+            data-en="Back to Account"
+            data-ar="العودة إلى الحساب"
+            >Back to Account</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer fade-in">
+      <div class="container">
+        <p style="text-align: center; color: #ccc">© 2025 THE ART OF WEB</p>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // ===== Language Switch =====
+      const langEnBtn = document.getElementById("lang-en");
+      const langArBtn = document.getElementById("lang-ar");
+
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
+        });
+        localStorage.setItem("siteLang", lang);
+      }
+
+      function applyLang() {
+        setLanguage(localStorage.getItem("siteLang") || "en");
+      }
+
+      langEnBtn.addEventListener("click", () => setLanguage("en"));
+      langArBtn.addEventListener("click", () => setLanguage("ar"));
+      applyLang();
+
+      // ===== Load Current User =====
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        alert("Please login first!");
+        window.location.href = "login.html";
+      } else {
+        document.getElementById("fullname").value = user.fullname;
+        document.getElementById("email").value = user.email;
+      }
+
+      // ===== Save Updated Data =====
+      document.getElementById("save-btn").addEventListener("click", () => {
+        const updatedUser = {
+          fullname: document.getElementById("fullname").value,
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value || user.password,
+        };
+
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        alert("✅ Account information updated successfully!");
+        window.location.href = "account.html";
+      });
+    </script>
+  </body>
+</html>

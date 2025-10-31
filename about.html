@@ -1,137 +1,809 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>THE ART OF WEB — About Us</title>
-  <link href="styles.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: Arial, sans-serif; transition: font 0.2s ease; }
-    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>THE ART OF WEB — About Us</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body.arabic {
+        font-family: "Cairo", sans-serif;
+        direction: rtl;
+        text-align: right;
+      }
+      body.english {
+        direction: ltr;
+        text-align: left;
+      }
+      body {
+        background: #071018;
+        color: #fff;
+        margin: 0;
+        font-family: sans-serif;
+      }
 
-    /* Mobile adjustments */
-    @media (max-width: 900px) {
-      .hero-left, .hero-right { flex: 1 1 100%; }
-      .story-images { flex-direction: column; align-items: center; }
-    }
-    @media (max-width: 480px) {
-      .hero-title { font-size: 26px; }
-    }
+      /* Header & Footer */
+      header.header,
+      footer.footer {
+        background: #071018;
+        color: #fff;
+        padding: 20px 0;
+      }
+      footer.footer a {
+        color: #fff;
+        text-decoration: none;
+      }
+      footer.footer a:hover {
+        color: #f6b042;
+      }
 
-    /* Contain images */
-    .hero-right img, .story-images img { max-width: 100%; height: auto; display: block; }
+      /* Hero & Story */
+      .hero,
+      .story {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        background: #071018;
+      }
+      .hero-left,
+      .hero-right {
+        flex: 1 1 45%;
+        text-align: center;
+      }
+      .hero-title {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+      .hero-sub {
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .hero-right img,
+      .story-images img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+      }
 
-    /* Language buttons */
-    .lang-switch button {
-      padding: 4px 8px;
-      margin-left: 5px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
+      /* Language buttons */
+      .lang-switch {
+        display: inline-flex;
+        gap: 5px;
+      }
+      .lang-switch button {
+        padding: 5px 10px;
+        border: 1px solid #555;
+        background: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 4px;
+        transition: 0.2s;
+      }
+      .lang-switch button:hover {
+        background: #555;
+        color: #fff;
+      }
 
-<!-- Header -->
-<header class="header fade-in">
-  <div class="container">
-    <div class="logo">
-      <img src="images/logo.png" alt="THE ART OF WEB Logo">
-      <div>THE ART OF WEB</div>
-    </div>
-    <nav class="nav">
-      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
-      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
-      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
-      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
-      <span class="lang-switch">
-        <button id="lang-en">EN</button>
-        <button id="lang-ar">AR</button>
-      </span>
-    </nav>
-  </div>
-</header>
+      /* Auth Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+      }
+      .modal.active {
+        display: flex;
+      }
+      .modal-content {
+        background: #071018;
+        color: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 400px;
+        width: 90%;
+        position: relative;
+      }
+      .modal-content h2 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .modal-content .field {
+        margin-bottom: 15px;
+      }
+      .modal-content input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #555;
+        background: #1a1a1a;
+        color: #fff;
+      }
+      .modal-content button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        background: #f6b042;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .modal-content button:hover {
+        background: #e59c00;
+        color: #000;
+      }
+      .modal-content .switch {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 14px;
+        cursor: pointer;
+        color: #f6b042;
+      }
+      .modal-content .switch:hover {
+        text-decoration: underline;
+      }
+      .close-modal {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #fff;
+      }
 
-<!-- Hero Section -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-left fade-in">
-      <h1 class="hero-title" data-en="About THE ART OF WEB" data-ar="عن THE ART OF WEB">About THE ART OF WEB</h1>
-      <p class="hero-sub" data-en="We are a boutique studio specializing in modern web and app development. We help startups and businesses create digital products that grow."
-         data-ar="نحن استوديو متخصص في تطوير المواقع والتطبيقات الحديثة. نساعد الشركات الناشئة والشركات على إنشاء منتجات رقمية تنمو.">
-        We are a boutique studio specializing in modern web and app development. We help startups and businesses create digital products that grow.
-      </p>
-    </div>
-    <div class="hero-right fade-in">
-      <img src="hero-image3.png" alt="Team working on web projects">
-    </div>
-  </div>
-</section>
+      /* Form Messages */
+      .form-message {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #f6b042;
+        text-align: center;
+      }
 
-<!-- Story / Mission -->
-<section class="story fade-in">
-  <div class="container">
-    <div>
-      <h2 data-en="Our Mission" data-ar="مهمتنا">Our Mission</h2>
-      <p data-en="Our mission is to deliver high-quality digital solutions that help businesses succeed online. We combine creativity, technology, and strategy to create effective websites and apps."
-         data-ar="مهمتنا هي تقديم حلول رقمية عالية الجودة تساعد الشركات على النجاح عبر الإنترنت. نجمع بين الإبداع والتقنية والاستراتيجية لإنشاء مواقع وتطبيقات فعالة.">
-        Our mission is to deliver high-quality digital solutions that help businesses succeed online. We combine creativity, technology, and strategy to create effective websites and apps.
-      </p>
-    </div>
-    <div class="story-images">
-      <img src="hero-image4.webp" alt="Team collaboration">
-    </div>
-  </div>
-</section>
+      /* Profile dropdown */
+      .profile-container {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+      }
+      .profile-container img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid #f6b042;
+      }
+      .profile-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        background: #071018;
+        color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        padding: 10px;
+        min-width: 180px;
+        z-index: 999;
+      }
+      .profile-dropdown.active {
+        display: block;
+      }
+      .profile-dropdown div {
+        padding: 8px 10px;
+        cursor: pointer;
+        color: #fff;
+      }
+      .profile-dropdown div:hover {
+        background: #121212;
+      }
+      .profile-dropdown .email {
+        font-size: 12px;
+        cursor: default;
+      }
 
-<!-- Footer -->
-<footer class="footer fade-in">
-  <div class="container">
-    <div class="col">
-      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
-      <p>
-        <a href="https://instagram.com/@the.art.of.web" target="_blank" rel="noopener">INSTAGRAM</a><br>
-        <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
-        <a href="https://wa.me/+212682935120" target="_blank" rel="noopener">WhatsApp</a>
-      </p>
-      <div style="text-align:center; margin-top:20px; color:#d7d7d7; font-size:14px;">
-        &copy; 2025 THE ART OF WEB. All rights reserved.
+      /* Mobile */
+      @media (max-width: 900px) {
+        .hero,
+        .story {
+          flex-direction: column;
+        }
+        .hero-left,
+        .hero-right {
+          flex: 1 1 100%;
+          text-align: center;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero-title {
+          font-size: 26px;
+        }
+        .hero-sub {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body class="english">
+    <!-- Header -->
+    <header class="header fade-in">
+      <div class="container">
+        <div class="logo">
+          <img src="images/logo.png" alt="THE ART OF WEB Logo" />
+          <div>THE ART OF WEB</div>
+        </div>
+        <nav class="nav">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+          <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+          <a href="contact.html" data-en="Contact" data-ar="اتصل بنا"
+            >Contact</a
+          >
+
+          <!-- Profile / Login Menu -->
+          <span id="user-menu">
+            <div class="profile-container" id="profile-container">
+              <img src="images/profile-logo.png" alt="Profile" />
+              <div class="profile-dropdown" id="profile-dropdown">
+                <div
+                  id="login-link"
+                  data-en="Login / Sign Up"
+                  data-ar="تسجيل الدخول / تسجيل"
+                >
+                  Login / Sign Up
+                </div>
+              </div>
+            </div>
+          </span>
+
+          <span class="lang-switch">
+            <button id="lang-en">EN</button>
+            <button id="lang-ar">AR</button>
+          </span>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-left fade-in">
+        <h1
+          class="hero-title"
+          data-en="About THE ART OF WEB"
+          data-ar="عن THE ART OF WEB"
+        >
+          About THE ART OF WEB
+        </h1>
+        <p
+          class="hero-sub"
+          data-en="We are a boutique studio specializing in modern web and app development. We help startups and businesses create digital products that grow."
+          data-ar="نحن استوديو متخصص في تطوير المواقع والتطبيقات الحديثة. نساعد الشركات الناشئة والشركات على إنشاء منتجات رقمية تنمو."
+        >
+          We are a boutique studio specializing in modern web and app
+          development. We help startups and businesses create digital products
+          that grow.
+        </p>
+      </div>
+      <div class="hero-right fade-in">
+        <img src="hero-image3.png" alt="Team working on web projects" />
+      </div>
+    </section>
+
+    <!-- Story / Mission -->
+    <section
+      class="story fade-in"
+      style="background: #071018; border-radius: 12px; padding: 40px"
+    >
+      <div>
+        <h2 data-en="Our Mission" data-ar="مهمتنا">Our Mission</h2>
+        <p
+          data-en="Our mission is to deliver high-quality digital solutions that help businesses succeed online. We combine creativity, technology, and strategy to create effective websites and apps."
+          data-ar="مهمتنا هي تقديم حلول رقمية عالية الجودة تساعد الشركات على النجاح عبر الإنترنت. نجمع بين الإبداع والتقنية والاستراتيجية لإنشاء مواقع وتطبيقات فعالة."
+        >
+          Our mission is to deliver high-quality digital solutions that help
+          businesses succeed online. We combine creativity, technology, and
+          strategy to create effective websites and apps.
+        </p>
+      </div>
+      <div class="story-images">
+        <img src="hero-image4.webp" alt="Team collaboration" />
+      </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="auth-modal">
+      <div class="modal-content">
+        <span class="close-modal" id="close-modal">&times;</span>
+
+        <!-- Login Form -->
+        <div id="login-form">
+          <h2 data-en="Login" data-ar="تسجيل الدخول">Login</h2>
+          <div class="field">
+            <input
+              type="text"
+              id="login-username"
+              data-en="Email or Username"
+              data-ar="البريد الإلكتروني أو اسم المستخدم"
+              placeholder="Email or Username"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="password"
+              id="login-password"
+              data-en="Password"
+              data-ar="كلمة المرور"
+              placeholder="Password"
+            />
+          </div>
+          <div
+            class="switch"
+            id="forgot-pass"
+            data-en="Forgot Password?"
+            data-ar="نسيت كلمة المرور؟"
+          >
+            Forgot Password?
+          </div>
+          <button id="login-btn" data-en="Login" data-ar="تسجيل الدخول">
+            Login
+          </button>
+          <div class="form-message" id="login-message"></div>
+          <div
+            class="switch"
+            id="show-signup"
+            data-en="Don't have an account? Sign Up"
+            data-ar="ليس لديك حساب؟ سجل الآن"
+          >
+            Don't have an account? Sign Up
+          </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signup-form" style="display: none">
+          <h2 data-en="Sign Up" data-ar="تسجيل">Sign Up</h2>
+          <div class="field">
+            <input
+              type="text"
+              id="signup-username"
+              data-en="Username"
+              data-ar="اسم المستخدم"
+              placeholder="Username"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="email"
+              id="signup-email"
+              data-en="Email"
+              data-ar="البريد الإلكتروني"
+              placeholder="Email"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="email"
+              id="signup-confirm-email"
+              data-en="Confirm Email"
+              data-ar="تأكيد البريد الإلكتروني"
+              placeholder="Confirm Email"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="password"
+              id="signup-password"
+              data-en="Password"
+              data-ar="كلمة المرور"
+              placeholder="Password"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="password"
+              id="signup-confirm-password"
+              data-en="Confirm Password"
+              data-ar="تأكيد كلمة المرور"
+              placeholder="Confirm Password"
+            />
+          </div>
+          <button id="signup-btn" data-en="Sign Up" data-ar="تسجيل">
+            Sign Up
+          </button>
+          <div class="form-message" id="signup-message"></div>
+          <div
+            class="switch"
+            id="show-login"
+            data-en="Already have an account? Login"
+            data-ar="لديك حساب بالفعل؟ تسجيل الدخول"
+          >
+            Already have an account? Login
+          </div>
+        </div>
+
+        <!-- Reset Form -->
+        <div id="reset-form" style="display: none">
+          <h2 data-en="Reset Password" data-ar="إعادة تعيين كلمة المرور">
+            Reset Password
+          </h2>
+          <div class="field">
+            <input
+              type="email"
+              id="reset-email"
+              data-en="Enter your registered email"
+              data-ar="أدخل بريدك الإلكتروني المسجل"
+              placeholder="Enter your registered email"
+            />
+          </div>
+          <button
+            id="reset-btn"
+            data-en="Send Reset Link"
+            data-ar="إرسال رابط إعادة التعيين"
+          >
+            Send Reset Link
+          </button>
+          <div class="form-message" id="reset-message"></div>
+          <div
+            class="switch"
+            id="back-to-login"
+            data-en="Back to Login"
+            data-ar="العودة لتسجيل الدخول"
+          >
+            Back to Login
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
 
-<!-- Language Switch Script -->
-<script>
-const langEnBtn = document.getElementById("lang-en");
-const langArBtn = document.getElementById("lang-ar");
+    <!-- Footer -->
+    <footer class="footer fade-in">
+      <div class="container">
+        <div class="col">
+          <h4 data-en="Connect with Us" data-ar="تواصل معنا">
+            Connect with Us
+          </h4>
+          <p>
+            <a
+              href="https://instagram.com/@the.art.of.web"
+              target="_blank"
+              rel="noopener"
+              >INSTAGRAM</a
+            ><br />
+            <a href="mailto:theartofwebsupp@gmail.com"
+              >GMAIL: theartofwebsupp@gmail.com</a
+            ><br />
+            <a href="https://wa.me/+212682935120" target="_blank" rel="noopener"
+              >WhatsApp</a
+            >
+          </p>
+          <div
+            style="
+              text-align: center;
+              margin-top: 20px;
+              color: #fff;
+              font-size: 14px;
+            "
+          >
+            &copy; 2025 THE ART OF WEB. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
 
-// Load saved language on page load
-function applySavedLanguage() {
-  const savedLang = localStorage.getItem("siteLang") || "en";
-  setLanguage(savedLang);
-}
+    <script>
+      /* --- Main Script (cleaned duplicate reset handler) --- */
+      function applyTranslations() {
+        const lang = localStorage.getItem("siteLang") || "en";
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          if (el.placeholder !== undefined && el.tagName === "INPUT") {
+            el.placeholder = lang === "en" ? el.dataset.en : el.dataset.ar;
+          } else {
+            el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
+          }
+        });
+      }
+      function updateLogoutText() {
+        const lang = localStorage.getItem("siteLang") || "en";
+        const logoutEl = document.getElementById("logout");
+        if (logoutEl)
+          logoutEl.textContent = lang === "en" ? "Logout" : "تسجيل الخروج";
+      }
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.body.classList.remove("arabic", "english");
+        if (lang === "ar") document.body.classList.add("arabic");
+        else document.body.classList.add("english");
+        localStorage.setItem("siteLang", lang);
+        applyTranslations();
+        updateLogoutText();
+      }
+      function showMessage(id, message, isError = false) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = message;
+        el.style.color = isError ? "#ff4c4c" : "#f6b042";
+        el.style.fontWeight = "600";
+        el.style.textAlign = "center";
+        el.style.marginTop = "10px";
+        el.style.fontSize = "15px";
+      }
+      document
+        .getElementById("lang-en")
+        .addEventListener("click", () => setLanguage("en"));
+      document
+        .getElementById("lang-ar")
+        .addEventListener("click", () => setLanguage("ar"));
+      setLanguage(localStorage.getItem("siteLang") || "en");
+      const userMenu = document.getElementById("user-menu");
+      const authModal = document.getElementById("auth-modal");
+      const closeModal = document.getElementById("close-modal");
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const resetForm = document.getElementById("reset-form");
+      const showSignup = document.getElementById("show-signup");
+      const showLogin = document.getElementById("show-login");
+      const forgotPass = document.getElementById("forgot-pass");
+      const backToLogin = document.getElementById("back-to-login");
 
-// Set language and save to localStorage
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.body.classList.remove("arabic");
-  if(lang === "ar") document.body.classList.add("arabic");
+      function renderUserMenu() {
+        const user = JSON.parse(localStorage.getItem("loggedUser"));
+        const lang = localStorage.getItem("siteLang") || "en";
+        if (user) {
+          const logoutText = lang === "en" ? "Logout" : "تسجيل الخروج";
+          userMenu.innerHTML = `
+      <div class="profile-container" id="profile-container">
+        <img src="profile-logo.png" alt="Profile">
+        <div class="profile-dropdown" id="profile-dropdown">
+          <div class="username">👤 ${user.username}</div>
+          <div class="email">${user.email}</div>
+          <div id="logout">${logoutText}</div>
+        </div>
+      </div>
+    `;
+          const profileContainer = document.getElementById("profile-container");
+          const profileDropdown = document.getElementById("profile-dropdown");
+          profileContainer.addEventListener("click", () =>
+            profileDropdown.classList.toggle("active")
+          );
+          document.getElementById("logout").addEventListener("click", () => {
+            localStorage.removeItem("loggedUser");
+            renderUserMenu();
+          });
+        } else {
+          userMenu.innerHTML = `
+      <div class="profile-container" id="profile-container">
+        <img src="profile-logo.png" alt="Profile">
+        <div class="profile-dropdown" id="profile-dropdown">
+          <div id="login-link" data-en="Login / Sign Up" data-ar="تسجيل الدخول / تسجيل">
+            ${lang === "en" ? "Login / Sign Up" : "تسجيل الدخول / تسجيل"}
+          </div>
+        </div>
+      </div>
+    `;
+          const loginLink = document.getElementById("login-link");
+          const profileContainer = document.getElementById("profile-container");
+          const profileDropdown = document.getElementById("profile-dropdown");
+          profileContainer.addEventListener("click", () =>
+            profileDropdown.classList.toggle("active")
+          );
+          loginLink.addEventListener("click", () => {
+            authModal.classList.add("active");
+            loginForm.style.display = "block";
+            signupForm.style.display = "none";
+            resetForm.style.display = "none";
+          });
+        }
+      }
+      closeModal.addEventListener("click", () =>
+        authModal.classList.remove("active")
+      );
+      showSignup.addEventListener("click", () => {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+        resetForm.style.display = "none";
+      });
+      showLogin.addEventListener("click", () => {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        resetForm.style.display = "none";
+      });
+      forgotPass.addEventListener("click", () => {
+        loginForm.style.display = "none";
+        signupForm.style.display = "none";
+        resetForm.style.display = "block";
+      });
+      backToLogin.addEventListener("click", () => {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        resetForm.style.display = "none";
+      });
+      document.getElementById("login-btn").addEventListener("click", () => {
+        const username = document.getElementById("login-username").value.trim();
+        const password = document.getElementById("login-password").value.trim();
+        const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+        const lang = localStorage.getItem("siteLang") || "en";
+        const user = users.find(
+          (u) =>
+            (u.username === username || u.email === username) &&
+            u.password === password
+        );
+        if (user) {
+          localStorage.setItem("loggedUser", JSON.stringify(user));
+          authModal.classList.remove("active");
+          renderUserMenu();
+          showMessage(
+            "login-message",
+            lang === "en" ? "Logged in successfully!" : "تم تسجيل الدخول بنجاح!"
+          );
+        } else {
+          showMessage(
+            "login-message",
+            lang === "en"
+              ? "Invalid credentials."
+              : "بيانات تسجيل الدخول غير صحيحة."
+          );
+        }
+      });
+      document.getElementById("signup-btn").addEventListener("click", () => {
+        const username = document
+          .getElementById("signup-username")
+          .value.trim();
+        const email = document.getElementById("signup-email").value.trim();
+        const confirmEmail = document
+          .getElementById("signup-confirm-email")
+          .value.trim();
+        const password = document
+          .getElementById("signup-password")
+          .value.trim();
+        const confirmPassword = document
+          .getElementById("signup-confirm-password")
+          .value.trim();
+        const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+        const lang = localStorage.getItem("siteLang") || "en";
+        if (
+          !username ||
+          !email ||
+          !confirmEmail ||
+          !password ||
+          !confirmPassword
+        ) {
+          return showMessage(
+            "signup-message",
+            lang === "en" ? "All fields are required." : "جميع الحقول مطلوبة.",
+            true
+          );
+        }
+        if (email !== confirmEmail) {
+          return showMessage(
+            "signup-message",
+            lang === "en"
+              ? "Emails do not match."
+              : "البريد الإلكتروني غير متطابق.",
+            true
+          );
+        }
+        if (password !== confirmPassword) {
+          return showMessage(
+            "signup-message",
+            lang === "en"
+              ? "Passwords do not match."
+              : "كلمات المرور غير متطابقة.",
+            true
+          );
+        }
+        if (users.find((u) => u.email === email)) {
+          return showMessage(
+            "signup-message",
+            lang === "en"
+              ? "Email already exists."
+              : "البريد الإلكتروني مستخدم بالفعل.",
+            true
+          );
+        }
+        users.push({ username, email, password });
+        localStorage.setItem("signupUsers", JSON.stringify(users));
+        showMessage(
+          "signup-message",
+          lang === "en"
+            ? "Account created successfully!"
+            : "تم إنشاء الحساب بنجاح!"
+        );
+        setTimeout(() => {
+          signupForm.style.display = "none";
+          loginForm.style.display = "block";
+        }, 1500);
+      });
 
-  document.querySelectorAll("[data-en]").forEach(el => {
-    el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
-  });
+      // ✅ Single Reset Button Handler
+      document
+        .getElementById("reset-btn")
+        .addEventListener("click", async () => {
+          const email = document.getElementById("reset-email").value.trim();
+          const messageEl = document.getElementById("reset-message");
+          const lang = localStorage.getItem("siteLang") || "en";
 
-  localStorage.setItem("siteLang", lang);
-}
+          if (!email) {
+            showMessage(
+              "reset-message",
+              lang === "en"
+                ? "Please enter your email."
+                : "الرجاء إدخال بريدك الإلكتروني.",
+              true
+            );
+            return;
+          }
 
-// Add button click events
-langEnBtn.addEventListener("click", () => setLanguage("en"));
-langArBtn.addEventListener("click", () => setLanguage("ar"));
+          const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+          const user = users.find((u) => u.email === email);
 
-// Apply saved language when page loads
-applySavedLanguage();
-</script>
+          if (!user) {
+            showMessage(
+              "reset-message",
+              lang === "en"
+                ? "Email not found."
+                : "البريد الإلكتروني غير موجود.",
+              true
+            );
+            return;
+          }
 
-</body>
+          try {
+            const templateParams = {
+              user_name: user.username,
+              user_email: email,
+              reset_link: `https://theartofweb.vercel.app/reset-password.html?email=${encodeURIComponent(
+                email
+              )}`,
+              support_email: "theartofwebsupp@gmail.com",
+            };
+
+            await emailjs.send(
+              "service_qzps9pc",
+              "template_2rgjans",
+              templateParams,
+              "LUva89Ktxhzp_pdRq"
+            );
+
+            showMessage(
+              "reset-message",
+              lang === "en"
+                ? "Reset link sent! Check your email."
+                : "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني."
+            );
+          } catch (error) {
+            console.error(error);
+            showMessage(
+              "reset-message",
+              lang === "en"
+                ? "Something went wrong. Try again."
+                : "حدث خطأ ما. حاول مرة أخرى.",
+              true
+            );
+          }
+        });
+
+      renderUserMenu();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      emailjs.init("LUva89Ktxhzp_pdRq");
+    </script>
+  </body>
 </html>

@@ -1,181 +1,221 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Login — THE ART OF WEB</title>
-  <link href="styles.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: Arial, sans-serif; transition: font 0.2s ease; }
-    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login — THE ART OF WEB</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        transition: font 0.2s ease;
+      }
+      html[lang="ar"] body {
+        font-family: "Cairo", sans-serif;
+      }
 
-    .login-container {
-      max-width: 400px;
-      margin: 100px auto;
-      background: #1a1a1a;
-      color: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
-    }
+      .login-container {
+        max-width: 400px;
+        margin: 100px auto;
+        background: #1a1a1a;
+        color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      }
 
-    .login-container h2 { text-align: center; margin-bottom: 20px; }
+      .login-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-    .field { margin-bottom: 15px; }
-    .field label { display: block; margin-bottom: 5px; }
-    .field input {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-    }
+      .field {
+        margin-bottom: 15px;
+      }
+      .field label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .field input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+      }
 
-    .cta {
-      display: block;
-      width: 100%;
-      background: #f6b042;
-      color: #000;
-      border: none;
-      padding: 10px;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+      .cta {
+        display: block;
+        width: 100%;
+        background: #f6b042;
+        color: #000;
+        border: none;
+        padding: 10px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+      }
 
-    .switch-mode {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 14px;
-    }
+      .switch-mode {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+      }
 
-    .switch-mode span { color: #f6b042; cursor: pointer; }
+      .switch-mode span {
+        color: #f6b042;
+        cursor: pointer;
+      }
 
-    .lang-switch button {
-      padding: 4px 8px;
-      margin-left: 5px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
+      .lang-switch button {
+        padding: 4px 8px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header fade-in">
+      <div class="container">
+        <div class="logo">
+          <img
+            src="images/logo.png"
+            alt="THE ART OF WEB Logo"
+            style="max-height: 140px"
+          />
+          <div>THE ART OF WEB</div>
+        </div>
+        <nav class="nav">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+          <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+          <a href="contact.html" data-en="Contact" data-ar="اتصل بنا"
+            >Contact</a
+          >
+          <span class="lang-switch">
+            <button id="lang-en">EN</button>
+            <button id="lang-ar">AR</button>
+          </span>
+        </nav>
+      </div>
+    </header>
 
-<header class="header fade-in">
-  <div class="container">
-    <div class="logo">
-      <img src="images/logo.png" alt="THE ART OF WEB Logo" style="max-height:140px;">
-      <div>THE ART OF WEB</div>
-    </div>
-    <nav class="nav">
-      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
-      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
-      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
-      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
-      <span class="lang-switch">
-        <button id="lang-en">EN</button>
-        <button id="lang-ar">AR</button>
-      </span>
-    </nav>
-  </div>
-</header>
+    <section class="login fade-in">
+      <div class="login-container">
+        <h2 id="form-title" data-en="Login" data-ar="تسجيل الدخول">Login</h2>
 
-<section class="login fade-in">
-  <div class="login-container">
-    <h2 id="form-title" data-en="Login" data-ar="تسجيل الدخول">Login</h2>
+        <div class="field">
+          <label data-en="Email" data-ar="البريد الإلكتروني">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
 
-    <div class="field">
-      <label data-en="Email" data-ar="البريد الإلكتروني">Email</label>
-      <input type="email" id="email" placeholder="you@example.com">
-    </div>
+        <div class="field">
+          <label data-en="Password" data-ar="كلمة المرور">Password</label>
+          <input type="password" id="password" placeholder="••••••••" />
+        </div>
 
-    <div class="field">
-      <label data-en="Password" data-ar="كلمة المرور">Password</label>
-      <input type="password" id="password" placeholder="••••••••">
-    </div>
+        <div id="name-field" class="field" style="display: none">
+          <label data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
+          <input type="text" id="fullname" placeholder="John Doe" />
+        </div>
 
-    <div id="name-field" class="field" style="display:none;">
-      <label data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
-      <input type="text" id="fullname" placeholder="John Doe">
-    </div>
+        <button
+          class="cta"
+          id="submit-btn"
+          data-en="Login"
+          data-ar="تسجيل الدخول"
+        >
+          Login
+        </button>
 
-    <button class="cta" id="submit-btn" data-en="Login" data-ar="تسجيل الدخول">Login</button>
+        <div class="switch-mode">
+          <span
+            id="switch-text"
+            data-en="Don't have an account? Sign up"
+            data-ar="ليس لديك حساب؟ سجل الآن"
+            >Don't have an account? Sign up</span
+          >
+        </div>
+      </div>
+    </section>
 
-    <div class="switch-mode">
-      <span id="switch-text" data-en="Don't have an account? Sign up" data-ar="ليس لديك حساب؟ سجل الآن">Don't have an account? Sign up</span>
-    </div>
-  </div>
-</section>
+    <footer class="footer fade-in">
+      <div class="container">
+        <p style="text-align: center; color: #ccc">© 2025 THE ART OF WEB</p>
+      </div>
+    </footer>
 
-<footer class="footer fade-in">
-  <div class="container">
-    <p style="text-align:center;color:#ccc;">© 2025 THE ART OF WEB</p>
-  </div>
-</footer>
+    <script>
+      // ===== Language Switch =====
+      const langEnBtn = document.getElementById("lang-en");
+      const langArBtn = document.getElementById("lang-ar");
 
-<script>
-// ===== Language Switch =====
-const langEnBtn = document.getElementById("lang-en");
-const langArBtn = document.getElementById("lang-ar");
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
+        });
+        localStorage.setItem("siteLang", lang);
+      }
 
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-en]").forEach(el=>{
-    el.textContent = lang==="en" ? el.dataset.en : el.dataset.ar;
-  });
-  localStorage.setItem("siteLang", lang);
-}
+      function applyLang() {
+        setLanguage(localStorage.getItem("siteLang") || "en");
+      }
 
-function applyLang() {
-  setLanguage(localStorage.getItem("siteLang") || "en");
-}
+      langEnBtn.addEventListener("click", () => setLanguage("en"));
+      langArBtn.addEventListener("click", () => setLanguage("ar"));
+      applyLang();
 
-langEnBtn.addEventListener("click",()=>setLanguage("en"));
-langArBtn.addEventListener("click",()=>setLanguage("ar"));
-applyLang();
+      // ===== Auth Logic =====
+      let isSignup = false;
+      const formTitle = document.getElementById("form-title");
+      const nameField = document.getElementById("name-field");
+      const submitBtn = document.getElementById("submit-btn");
+      const switchText = document.getElementById("switch-text");
 
-// ===== Auth Logic =====
-let isSignup = false;
-const formTitle = document.getElementById("form-title");
-const nameField = document.getElementById("name-field");
-const submitBtn = document.getElementById("submit-btn");
-const switchText = document.getElementById("switch-text");
+      switchText.addEventListener("click", () => {
+        isSignup = !isSignup;
+        if (isSignup) {
+          formTitle.textContent = "Sign Up";
+          nameField.style.display = "block";
+          submitBtn.textContent = "Sign Up";
+          switchText.textContent = "Already have an account? Login";
+        } else {
+          formTitle.textContent = "Login";
+          nameField.style.display = "none";
+          submitBtn.textContent = "Login";
+          switchText.textContent = "Don't have an account? Sign up";
+        }
+      });
 
-switchText.addEventListener("click", () => {
-  isSignup = !isSignup;
-  if(isSignup) {
-    formTitle.textContent = "Sign Up";
-    nameField.style.display = "block";
-    submitBtn.textContent = "Sign Up";
-    switchText.textContent = "Already have an account? Login";
-  } else {
-    formTitle.textContent = "Login";
-    nameField.style.display = "none";
-    submitBtn.textContent = "Login";
-    switchText.textContent = "Don't have an account? Sign up";
-  }
-});
+      submitBtn.addEventListener("click", () => {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const fullname = document.getElementById("fullname").value;
 
-submitBtn.addEventListener("click", () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const fullname = document.getElementById("fullname").value;
-
-  if(isSignup) {
-    if(!email || !password || !fullname) return alert("Please fill all fields");
-    localStorage.setItem("user", JSON.stringify({ email, password, fullname }));
-    alert("Account created successfully!");
-    window.location.href = "account.html";
-  } else {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if(!user) return alert("No account found. Please sign up.");
-    if(email === user.email && password === user.password) {
-      alert("Login successful!");
-      window.location.href = "account.html";
-    } else {
-      alert("Incorrect credentials");
-    }
-  }
-});
-</script>
-</body>
+        if (isSignup) {
+          if (!email || !password || !fullname)
+            return alert("Please fill all fields");
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ email, password, fullname })
+          );
+          alert("Account created successfully!");
+          window.location.href = "account.html";
+        } else {
+          const user = JSON.parse(localStorage.getItem("user"));
+          if (!user) return alert("No account found. Please sign up.");
+          if (email === user.email && password === user.password) {
+            alert("Login successful!");
+            window.location.href = "account.html";
+          } else {
+            alert("Incorrect credentials");
+          }
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -1,206 +1,955 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>THE ART OF WEB — Packs</title>
-  <link href="styles.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: Arial, sans-serif; transition: font 0.2s ease; }
-    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>THE ART OF WEB — Packs</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body.arabic {
+        font-family: "Cairo", sans-serif;
+        direction: rtl;
+        text-align: right;
+      }
+      body.english {
+        direction: ltr;
+        text-align: left;
+      }
+      body {
+        background: #071018;
+        color: #fff;
+        margin: 0;
+        font-family: sans-serif;
+      }
 
-    /* Mobile adjustments */
-    @media (max-width: 900px) {
-      .hero-left, .hero-right { flex: 1 1 100%; }
-      .pack-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 480px) {
-      .hero-title { font-size: 26px; }
-      .btn-inline { padding: 8px 16px; font-size: 14px; }
-    }
+      /* Mobile adjustments */
+      @media (max-width: 900px) {
+        .pack-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero-title {
+          font-size: 26px;
+        }
+        .btn-inline {
+          padding: 8px 16px;
+          font-size: 14px;
+        }
+      }
 
-    .hero-right img { max-width: 100%; height: auto; display: block; }
+      /* Header & Footer */
+      header.header,
+      footer.footer {
+        background: #071018;
+        color: #fff;
+        padding: 20px 0;
+      }
+      footer.footer a {
+        color: #fff;
+        text-decoration: none;
+      }
+      footer.footer a:hover {
+        color: #f6b042;
+      }
 
-    /* Language buttons */
-    .lang-switch button {
-      padding: 4px 8px;
-      margin-left: 5px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
+      /* Packs */
+      .packs {
+        padding: 50px 20px;
+        text-align: center;
+        background: #071018;
+        color: #fff;
+      }
+      .packs h2,
+      .packs h3 {
+        margin-bottom: 30px;
+        color: #fff;
+      }
+      .pack-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .pack-card {
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        background: #1a1a1a;
+        color: #fff;
+      }
+      .pack-card h3 {
+        margin: 15px 0;
+        color: #fff;
+      }
+      .pack-card p,
+      .pack-card ul li {
+        color: #fff;
+        text-align: left;
+        padding-left: 20px;
+      }
+      .pack-card a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #f6b042;
+        color: #000;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .pack-card a:hover {
+        background: #e59c00;
+        color: #000;
+      }
 
-<!-- Header -->
-<header class="header fade-in">
-  <div class="container">
-    <div class="logo">
-      <img src="images/logo.png" alt="THE ART OF WEB Logo">
-      <div>THE ART OF WEB</div>
+      /* Hero */
+      .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 50px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .hero-left {
+        flex: 1;
+        padding-right: 20px;
+      }
+      .hero-right {
+        flex: 1;
+      }
+      .hero-right img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* Language buttons */
+      .lang-switch {
+        display: inline-flex;
+        gap: 5px;
+      }
+      .lang-switch button {
+        padding: 5px 10px;
+        border: 1px solid #555;
+        background: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 4px;
+        transition: 0.2s;
+      }
+      .lang-switch button:hover {
+        background: #555;
+        color: #fff;
+      }
+
+      /* Auth Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+      }
+      .modal.active {
+        display: flex;
+      }
+      .modal-content {
+        background: #0a1a2a;
+        color: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 400px;
+        width: 90%;
+        position: relative;
+      }
+      .modal-content h2 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .modal-content .field {
+        margin-bottom: 15px;
+      }
+      .modal-content input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #555;
+        background: #1a1a1a;
+        color: #fff;
+      }
+      .modal-content button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        background: #f6b042;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .modal-content button:hover {
+        background: #e59c00;
+        color: #000;
+      }
+      .modal-content .switch {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 14px;
+        cursor: pointer;
+        color: #f6b042;
+      }
+      .modal-content .switch:hover {
+        text-decoration: underline;
+      }
+      .close-modal {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #fff;
+      }
+
+      /* Profile dropdown */
+      .profile-container {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+      }
+      .profile-container img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid #f6b042;
+      }
+      .profile-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        background: #0a1a2a;
+        color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        padding: 10px;
+        min-width: 180px;
+        z-index: 999;
+      }
+      .profile-dropdown.active {
+        display: block;
+      }
+      .profile-dropdown div {
+        padding: 8px 10px;
+        cursor: pointer;
+        color: #fff;
+      }
+      .profile-dropdown div:hover {
+        background: #121212;
+      }
+      .profile-dropdown .email {
+        font-size: 12px;
+        cursor: default;
+      }
+
+      /* Auth message */
+      #auth-message {
+        display: none;
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #f6b042;
+      }
+    </style>
+  </head>
+  <body class="english">
+    <!-- Header -->
+    <header class="header fade-in">
+      <div class="container">
+        <div class="logo">
+          <img src="images/logo.png" alt="THE ART OF WEB Logo" />
+          <div>THE ART OF WEB</div>
+        </div>
+        <nav class="nav">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+          <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+          <a href="contact.html" data-en="Contact" data-ar="اتصل بنا"
+            >Contact</a
+          >
+          <span id="user-menu"></span>
+          <span class="lang-switch">
+            <button id="lang-en">EN</button>
+            <button id="lang-ar">AR</button>
+          </span>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-left fade-in">
+        <h1
+          class="hero-title"
+          data-en="Choose the Perfect Pack for Your Business"
+          data-ar="اختر الباقة المثالية لأعمالك"
+        >
+          Choose the Perfect Pack for Your Business
+        </h1>
+      </div>
+      <div class="hero-right fade-in">
+        <img src="hero-image2.png" alt="Business growth illustration" />
+      </div>
+    </section>
+
+    <!-- Packs Grid -->
+    <section class="packs fade-in">
+      <div class="container">
+        <h3 data-en="All Available Packs" data-ar="جميع الباقات المتاحة">
+          All Available Packs
+        </h3>
+        <div class="pack-grid">
+          <!-- Starter Pack -->
+          <div class="pack-card">
+            <h3 data-en="Starter Website Pack" data-ar="باقة الموقع المبتدئ">
+              Starter Website Pack
+            </h3>
+            <div class="price">2000 MAD</div>
+            <ul>
+              <li data-en="Up to 5 pages" data-ar="حتى 5 صفحات">
+                Up to 5 pages
+              </li>
+              <li data-en="Responsive design" data-ar="تصميم متجاوب">
+                Responsive design
+              </li>
+              <li data-en="Contact form" data-ar="نموذج تواصل">Contact form</li>
+            </ul>
+            <a
+              class="btn-inline"
+              href="checkout.html?pack=starter"
+              data-en="Order This Pack"
+              data-ar="اطلب هذه الباقة"
+              >Order This Pack</a
+            >
+          </div>
+          <!-- Business Pack -->
+          <div class="pack-card">
+            <h3 data-en="Business Website Pack" data-ar="باقة موقع الأعمال">
+              Business Website Pack
+            </h3>
+            <div class="price">5500 MAD</div>
+            <ul>
+              <li data-en="Custom design" data-ar="تصميم مخصص">
+                Custom design
+              </li>
+              <li data-en="CMS integration" data-ar="تكامل CMS">
+                CMS integration
+              </li>
+            </ul>
+            <a
+              class="btn-inline"
+              href="checkout.html?pack=business"
+              data-en="Order This Pack"
+              data-ar="اطلب هذه الباقة"
+              >Order This Pack</a
+            >
+          </div>
+          <!-- Mobile App Pack -->
+          <div class="pack-card">
+            <h3
+              data-en="Mobile App Pack (iOS & Android)"
+              data-ar="باقة تطبيقات الموبايل (iOS & Android)"
+            >
+              Mobile App Pack (iOS & Android)
+            </h3>
+            <div class="price">55000 MAD</div>
+            <ul>
+              <li data-en="iOS & Android app" data-ar="تطبيق iOS & Android">
+                iOS & Android app
+              </li>
+              <li
+                data-en="Backend & Admin Panel"
+                data-ar="الواجهة الخلفية ولوحة التحكم"
+              >
+                Backend & Admin Panel
+              </li>
+              <li
+                data-en="Custom design & development"
+                data-ar="تصميم وتطوير مخصص"
+              >
+                Custom design & development
+              </li>
+            </ul>
+            <a
+              class="btn-inline"
+              href="checkout.html?pack=mobile"
+              data-en="Order This Pack"
+              data-ar="اطلب هذه الباقة"
+              >Order This Pack</a
+            >
+          </div>
+          <!-- Advanced Web Pack -->
+          <div class="pack-card">
+            <h3 data-en="Advanced Web Pack" data-ar="باقة الويب المتقدمة">
+              Advanced Web Pack
+            </h3>
+            <div class="price">9000 MAD</div>
+            <ul>
+              <li data-en="Up to 15 pages" data-ar="حتى 15 صفحة">
+                Up to 15 pages
+              </li>
+              <li
+                data-en="Custom animations & effects"
+                data-ar="الرسوم المتحركة والتأثيرات المخصصة"
+              >
+                Custom animations & effects
+              </li>
+              <li data-en="CMS & Blog integration" data-ar="تكامل CMS والمدونة">
+                CMS & Blog integration
+              </li>
+              <li data-en="SEO Optimization" data-ar="تحسين محركات البحث">
+                SEO Optimization
+              </li>
+            </ul>
+            <a
+              class="btn-inline"
+              href="checkout.html?pack=advanced"
+              data-en="Order This Pack"
+              data-ar="اطلب هذه الباقة"
+              >Order This Pack</a
+            >
+          </div>
+          <!-- Enterprise Pack -->
+          <div class="pack-card">
+            <h3 data-en="Enterprise App Pack" data-ar="باقة تطبيقات الشركات">
+              Enterprise App Pack
+            </h3>
+            <div class="price">95000 MAD</div>
+            <ul>
+              <li data-en="iOS & Android app" data-ar="تطبيق iOS & Android">
+                iOS & Android app
+              </li>
+              <li data-en="Admin dashboard" data-ar="لوحة تحكم الإدارة">
+                Admin dashboard
+              </li>
+              <li
+                data-en="Cloud integration & APIs"
+                data-ar="تكامل السحابة وواجهات برمجة التطبيقات"
+              >
+                Cloud integration & APIs
+              </li>
+              <li data-en="Advanced analytics" data-ar="تحليلات متقدمة">
+                Advanced analytics
+              </li>
+            </ul>
+            <a
+              class="btn-inline"
+              href="checkout.html?pack=enterprise"
+              data-en="Order This Pack"
+              data-ar="اطلب هذه الباقة"
+              >Order This Pack</a
+            >
+          </div>
+          <!-- Custom Pack -->
+          <div class="pack-card">
+            <h3 data-en="Custom Pack" data-ar="باقة مخصصة">Custom Pack</h3>
+            <div class="price" data-en="Contact Us" data-ar="تواصل معنا">
+              Contact Us
+            </div>
+            <p
+              data-en="If you want a custom website or app, message us on Instagram or email."
+              data-ar="إذا كنت تريد موقعًا أو تطبيقًا مخصصًا، راسلنا عبر إنستغرام أو البريد الإلكتروني."
+            >
+              If you want a custom website or app, message us on Instagram or
+              email.
+            </p>
+            <a
+              class="btn-inline"
+              href="https://instagram.com/@the.art.of.web"
+              target="_blank"
+              data-en="Contact Now"
+              data-ar="تواصل الآن"
+              >Contact Now</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="auth-modal">
+      <div class="modal-content">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <div id="auth-message"></div>
+
+        <!-- Login -->
+        <div id="login-form">
+          <h2 data-en="Login" data-ar="تسجيل الدخول">Login</h2>
+          <div class="field">
+            <input
+              type="text"
+              id="login-username"
+              data-en="Email or Username"
+              data-ar="البريد الإلكتروني أو اسم المستخدم"
+              placeholder="Email or Username"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="password"
+              id="login-password"
+              data-en="Password"
+              data-ar="كلمة المرور"
+              placeholder="Password"
+            />
+          </div>
+          <div
+            class="switch"
+            id="forgot-pass"
+            data-en="Forgot Password?"
+            data-ar="نسيت كلمة المرور؟"
+          >
+            Forgot Password?
+          </div>
+          <button id="login-btn" data-en="Login" data-ar="تسجيل الدخول">
+            Login
+          </button>
+          <div
+            class="switch"
+            id="show-signup"
+            data-en="Don't have an account? Sign Up"
+            data-ar="ليس لديك حساب؟ سجل الآن"
+          >
+            Don't have an account? Sign Up
+          </div>
+        </div>
+
+        <!-- Signup -->
+        <div id="signup-form" style="display: none">
+          <h2 data-en="Sign Up" data-ar="تسجيل">Sign Up</h2>
+          <div class="field">
+            <input
+              type="text"
+              id="signup-username"
+              data-en="Username"
+              data-ar="اسم المستخدم"
+              placeholder="Username"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="email"
+              id="signup-email"
+              data-en="Email"
+              data-ar="البريد الإلكتروني"
+              placeholder="Email"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="email"
+              id="signup-confirm-email"
+              data-en="Confirm Email"
+              data-ar="تأكيد البريد الإلكتروني"
+              placeholder="Confirm Email"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="password"
+              id="signup-password"
+              data-en="Password"
+              data-ar="كلمة المرور"
+              placeholder="Password"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="password"
+              id="signup-confirm-password"
+              data-en="Confirm Password"
+              data-ar="تأكيد كلمة المرور"
+              placeholder="Confirm Password"
+            />
+          </div>
+          <button id="signup-btn" data-en="Sign Up" data-ar="تسجيل">
+            Sign Up
+          </button>
+          <div
+            class="switch"
+            id="show-login"
+            data-en="Already have an account? Login"
+            data-ar="لديك حساب بالفعل؟ تسجيل الدخول"
+          >
+            Already have an account? Login
+          </div>
+        </div>
+
+        <!-- Reset -->
+        <div id="reset-form" style="display: none">
+          <h2 data-en="Reset Password" data-ar="إعادة تعيين كلمة المرور">
+            Reset Password
+          </h2>
+          <div class="field">
+            <input
+              type="email"
+              id="reset-email"
+              data-en="Enter your registered email"
+              data-ar="أدخل بريدك الإلكتروني المسجل"
+              placeholder="Enter your registered email"
+            />
+          </div>
+          <button
+            id="reset-btn"
+            data-en="Send Reset Link"
+            data-ar="إرسال رابط إعادة التعيين"
+          >
+            Send Reset Link
+          </button>
+          <div
+            class="switch"
+            id="back-to-login"
+            data-en="Back to Login"
+            data-ar="العودة لتسجيل الدخول"
+          >
+            Back to Login
+          </div>
+        </div>
+      </div>
     </div>
-    <nav class="nav">
-      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
-      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
-      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
-      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
-      <span class="lang-switch">
-        <button id="lang-en">EN</button>
-        <button id="lang-ar">AR</button>
-      </span>
-    </nav>
-  </div>
-</header>
 
-<!-- Hero Section -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-left fade-in">
-      <h1 class="hero-title" data-en="Choose the Perfect Pack for Your Business" data-ar="اختر الباقة المثالية لأعمالك">
-        Choose the Perfect Pack for Your Business
-      </h1>
-      <p class="hero-sub" data-en="Ready-to-start website and app packs. Payments accepted: Visa & Mastercard." 
-         data-ar="باقات جاهزة للموقع والتطبيق. الدفع ببطاقات Visa & Mastercard.">
-        Ready-to-start website and app packs. Payments accepted: Visa & Mastercard.
-      </p>
-    </div>
-    <div class="hero-right fade-in">
-      <img src="hero-image2.png" alt="Business growth illustration">
-    </div>
-  </div>
-</section>
-
-<!-- Packs Grid -->
-<section class="packs fade-in">
-  <div class="container">
-    <h3 data-en="All Available Packs" data-ar="جميع الباقات المتاحة">All Available Packs</h3>
-    <div class="pack-grid">
-
-      <!-- Starter Pack -->
-      <div class="pack fade-in">
-        <h4 data-en="Starter Website Pack" data-ar="باقة الموقع المبتدئ">Starter Website Pack</h4>
-        <div class="price">2000 MAD</div>
-        <ul>
-          <li data-en="Up to 5 pages" data-ar="حتى 5 صفحات">Up to 5 pages</li>
-          <li data-en="Responsive design" data-ar="تصميم متجاوب">Responsive design</li>
-          <li data-en="Contact form" data-ar="نموذج تواصل">Contact form</li>
-        </ul>
-        <a class="btn-inline" href="checkout.html?pack=starter" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+    <!-- Footer -->
+    <footer class="footer fade-in">
+      <div class="container">
+        <div class="col">
+          <h4 data-en="Connect with Us" data-ar="تواصل معنا">
+            Connect with Us
+          </h4>
+          <p>
+            <a href="https://instagram.com/@the.art.of.web" target="_blank"
+              >INSTAGRAM</a
+            ><br />
+            <a href="mailto:theartofwebsupp@gmail.com"
+              >GMAIL: theartofwebsupp@gmail.com</a
+            ><br />
+            <a href="https://wa.me/+212682935120" target="_blank">WhatsApp</a>
+          </p>
+          <div
+            style="
+              text-align: center;
+              margin-top: 20px;
+              color: #fff;
+              font-size: 14px;
+            "
+          >
+            &copy; 2025 THE ART OF WEB. All rights reserved.
+          </div>
+        </div>
       </div>
+    </footer>
 
-      <!-- Business Pack -->
-      <div class="pack fade-in">
-        <h4 data-en="Business Website Pack" data-ar="باقة موقع الأعمال">Business Website Pack</h4>
-        <div class="price">5500 MAD</div>
-        <ul>
-          <li data-en="Custom design" data-ar="تصميم مخصص">Custom design</li>
-          <li data-en="CMS integration" data-ar="تكامل CMS">CMS integration</li>
-        </ul>
-        <a class="btn-inline" href="checkout.html?pack=business" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function () {
+        emailjs.init("LUva89Ktxhzp_pdRq"); // Replace with your EmailJS Public Key
+      })();
+    </script>
+
+    <script>
+      // Translation
+      function applyTranslations() {
+        const lang = localStorage.getItem("siteLang") || "en";
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          if (el.placeholder !== undefined && el.tagName === "INPUT") {
+            el.placeholder = lang === "en" ? el.dataset.en : el.dataset.ar;
+          } else {
+            el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
+          }
+        });
+      }
+
+      function updateLogoutText() {
+        const lang = localStorage.getItem("siteLang") || "en";
+        const logoutEl = document.getElementById("logout");
+        if (logoutEl)
+          logoutEl.textContent = lang === "en" ? "Logout" : "تسجيل الخروج";
+      }
+
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.body.classList.remove("arabic", "english");
+        if (lang === "ar") document.body.classList.add("arabic");
+        else document.body.classList.add("english");
+        localStorage.setItem("siteLang", lang);
+        applyTranslations();
+        updateLogoutText();
+      }
+
+      document
+        .getElementById("lang-en")
+        .addEventListener("click", () => setLanguage("en"));
+      document
+        .getElementById("lang-ar")
+        .addEventListener("click", () => setLanguage("ar"));
+      setLanguage(localStorage.getItem("siteLang") || "en");
+
+      // Profile & Auth Menu
+      const userMenu = document.getElementById("user-menu");
+      const authModal = document.getElementById("auth-modal");
+      const closeModal = document.getElementById("close-modal");
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const resetForm = document.getElementById("reset-form");
+      const showSignup = document.getElementById("show-signup");
+      const showLogin = document.getElementById("show-login");
+      const forgotPass = document.getElementById("forgot-pass");
+      const backToLogin = document.getElementById("back-to-login");
+
+      function renderUserMenu() {
+        const user = JSON.parse(localStorage.getItem("loggedUser"));
+        const lang = localStorage.getItem("siteLang") || "en";
+
+        if (user) {
+          const logoutText = lang === "en" ? "Logout" : "تسجيل الخروج";
+          userMenu.innerHTML = `
+      <div class="profile-container" id="profile-container">
+        <img src="profile-logo.png" alt="Profile">
+        <div class="profile-dropdown" id="profile-dropdown">
+          <div class="username">👤 ${user.username}</div>
+          <div class="email">${user.email}</div>
+          <div id="logout">${logoutText}</div>
+        </div>
       </div>
-
-      <!-- Mobile App Pack -->
-      <div class="pack fade-in">
-        <h4 data-en="Mobile App Pack (iOS & Android)" data-ar="باقة تطبيقات الموبايل (iOS & Android)">Mobile App Pack (iOS & Android)</h4>
-        <div class="price">55000 MAD</div>
-        <ul>
-          <li data-en="iOS & Android app" data-ar="تطبيق iOS & Android">iOS & Android app</li>
-          <li data-en="Backend & Admin Panel" data-ar="الواجهة الخلفية ولوحة التحكم">Backend & Admin Panel</li>
-          <li data-en="Custom design & development" data-ar="تصميم وتطوير مخصص">Custom design & development</li>
-        </ul>
-        <a class="btn-inline" href="checkout.html?pack=mobile" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
+    `;
+          const profileContainer = document.getElementById("profile-container");
+          const profileDropdown = document.getElementById("profile-dropdown");
+          profileContainer.addEventListener("click", () =>
+            profileDropdown.classList.toggle("active")
+          );
+          document.getElementById("logout").addEventListener("click", () => {
+            localStorage.removeItem("loggedUser");
+            renderUserMenu();
+          });
+        } else {
+          userMenu.innerHTML = `
+      <div class="profile-container" id="profile-container">
+        <img src="profile-logo.png" alt="Profile">
+        <div class="profile-dropdown" id="profile-dropdown">
+          <div id="login-link" data-en="Login / Sign Up" data-ar="تسجيل الدخول / تسجيل">
+            ${lang === "en" ? "Login / Sign Up" : "تسجيل الدخول / تسجيل"}
+          </div>
+        </div>
       </div>
+    `;
+          const loginLink = document.getElementById("login-link");
+          const profileContainer = document.getElementById("profile-container");
+          const profileDropdown = document.getElementById("profile-dropdown");
+          profileContainer.addEventListener("click", () =>
+            profileDropdown.classList.toggle("active")
+          );
+          loginLink.addEventListener("click", () => {
+            authModal.classList.add("active");
+            loginForm.style.display = "block";
+            signupForm.style.display = "none";
+            resetForm.style.display = "none";
+          });
+        }
+      }
 
-      <!-- Advanced Web Pack -->
-      <div class="pack fade-in">
-        <h4 data-en="Advanced Web Pack" data-ar="باقة الويب المتقدمة">Advanced Web Pack</h4>
-        <div class="price">9000 MAD</div>
-        <ul>
-          <li data-en="Up to 15 pages" data-ar="حتى 15 صفحة">Up to 15 pages</li>
-          <li data-en="Custom animations & effects" data-ar="الرسوم المتحركة والتأثيرات المخصصة">Custom animations & effects</li>
-          <li data-en="CMS & Blog integration" data-ar="تكامل CMS والمدونة">CMS & Blog integration</li>
-          <li data-en="SEO Optimization" data-ar="تحسين محركات البحث">SEO Optimization</li>
-        </ul>
-        <a class="btn-inline" href="checkout.html?pack=advanced" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
-      </div>
+      closeModal.addEventListener("click", () =>
+        authModal.classList.remove("active")
+      );
+      showSignup.addEventListener("click", () => {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+        resetForm.style.display = "none";
+      });
+      showLogin.addEventListener("click", () => {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        resetForm.style.display = "none";
+      });
+      forgotPass.addEventListener("click", () => {
+        loginForm.style.display = "none";
+        signupForm.style.display = "none";
+        resetForm.style.display = "block";
+      });
+      backToLogin.addEventListener("click", () => {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        resetForm.style.display = "none";
+      });
+      function showMessage(message) {
+        const msgEl = document.getElementById("auth-message");
+        if (msgEl) {
+          msgEl.style.display = "block";
+          msgEl.textContent = message;
+          // optional: hide it after 3 seconds
+          setTimeout(() => {
+            msgEl.style.display = "none";
+          }, 3000);
+        } else {
+          alert(message); // fallback
+        }
+      }
 
-      <!-- Enterprise App Pack -->
-      <div class="pack fade-in">
-        <h4 data-en="Enterprise App Pack" data-ar="باقة تطبيقات الشركات">Enterprise App Pack</h4>
-        <div class="price">95000 MAD</div>
-        <ul>
-          <li data-en="iOS & Android app" data-ar="تطبيق iOS & Android">iOS & Android app</li>
-          <li data-en="Admin dashboard" data-ar="لوحة تحكم الإدارة">Admin dashboard</li>
-          <li data-en="Cloud integration & APIs" data-ar="تكامل السحابة وواجهات برمجة التطبيقات">Cloud integration & APIs</li>
-          <li data-en="Advanced analytics" data-ar="تحليلات متقدمة">Advanced analytics</li>
-        </ul>
-        <a class="btn-inline" href="checkout.html?pack=enterprise" data-en="Order This Pack" data-ar="اطلب هذه الباقة">Order This Pack</a>
-      </div>
+      // Login
+      document.getElementById("login-btn").addEventListener("click", () => {
+        const username = document.getElementById("login-username").value.trim();
+        const password = document.getElementById("login-password").value.trim();
+        const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+        const user = users.find(
+          (u) =>
+            (u.username === username || u.email === username) &&
+            u.password === password
+        );
+        const lang = localStorage.getItem("siteLang") || "en";
 
-      <!-- Custom Pack -->
-      <div class="pack fade-in">
-        <h4 data-en="Custom Pack" data-ar="باقة مخصصة">Custom Pack</h4>
-        <div class="price" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</div>
-        <ul>
-          <li data-en="Fully tailored web/app solution" data-ar="حلول ويب/تطبيقات مصممة خصيصاً">Fully tailored web/app solution</li>
-          <li data-en="You specify features" data-ar="تحدد الميزات">You specify features</li>
-          <li data-en="Direct consultation" data-ar="استشارة مباشرة">Direct consultation</li>
-        </ul>
-        <a class="btn-inline" href="contact.html" data-en="Create Your Pack" data-ar="أنشئ باقتك">Create Your Pack</a>
-      </div>
+        if (user) {
+          localStorage.setItem("loggedUser", JSON.stringify(user));
+          authModal.classList.remove("active");
+          renderUserMenu();
+          showMessage(
+            lang === "en" ? "Logged in successfully!" : "تم تسجيل الدخول بنجاح!"
+          );
+        } else
+          showMessage(
+            lang === "en"
+              ? "Invalid credentials."
+              : "بيانات تسجيل الدخول غير صحيحة."
+          );
+      });
 
-    </div>
-  </div>
-</section>
+      // Signup
+      document.getElementById("signup-btn").addEventListener("click", () => {
+        const username = document
+          .getElementById("signup-username")
+          .value.trim();
+        const email = document.getElementById("signup-email").value.trim();
+        const confirmEmail = document
+          .getElementById("signup-confirm-email")
+          .value.trim();
+        const password = document
+          .getElementById("signup-password")
+          .value.trim();
+        const confirmPassword = document
+          .getElementById("signup-confirm-password")
+          .value.trim();
+        const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+        const lang = localStorage.getItem("siteLang") || "en";
 
-<!-- Footer -->
-<footer class="footer fade-in">
-  <div class="container">
-    <div class="col">
-      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
-      <p>
-        <a href="https://instagram.com/@the.art.of.web" target="_blank" rel="noopener">INSTAGRAM</a><br>
-        <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
-        <a href="https://wa.me/+212682935120" target="_blank" rel="noopener">WhatsApp</a>
-      </p>
-      <div style="text-align:center; margin-top:20px; color:#d7d7d7; font-size:14px;">
-        &copy; 2025 THE ART OF WEB. All rights reserved.
-      </div>
-    </div>
-  </div>
-</footer>
+        if (!username || !email || !password) {
+          showMessage(
+            lang === "en" ? "All fields required" : "جميع الحقول مطلوبة"
+          );
+          return;
+        }
+        if (email !== confirmEmail) {
+          showMessage(
+            lang === "en"
+              ? "Emails do not match"
+              : "البريد الإلكتروني غير مطابق"
+          );
+          return;
+        }
+        if (password !== confirmPassword) {
+          showMessage(
+            lang === "en"
+              ? "Passwords do not match"
+              : "كلمات المرور غير متطابقة"
+          );
+          return;
+        }
+        if (users.some((u) => u.username === username || u.email === email)) {
+          showMessage(
+            lang === "en" ? "User already exists" : "المستخدم موجود بالفعل"
+          );
+          return;
+        }
 
-<!-- Language Switch Script -->
-<script>
-const langEnBtn = document.getElementById("lang-en");
-const langArBtn = document.getElementById("lang-ar");
+        users.push({ username, email, password });
+        localStorage.setItem("signupUsers", JSON.stringify(users));
+        localStorage.setItem("loggedUser", JSON.stringify({ username, email }));
+        authModal.classList.remove("active");
+        renderUserMenu();
+        showMessage(
+          lang === "en" ? "Sign up successful!" : "تم التسجيل بنجاح!"
+        );
+      });
 
-// Load language from localStorage on page load
-function applySavedLanguage() {
-  const savedLang = localStorage.getItem("siteLang") || "en";
-  setLanguage(savedLang);
-}
+      // Reset
+      // Reset Password (with EmailJS)
+      document
+        .getElementById("reset-btn")
+        .addEventListener("click", async () => {
+          const email = document.getElementById("reset-email").value.trim();
+          const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+          const lang = localStorage.getItem("siteLang") || "en";
 
-// Set language and save selection
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.body.classList.remove("arabic");
-  if(lang === "ar") document.body.classList.add("arabic");
+          if (!email) {
+            showMessage(
+              lang === "en" ? "Email required" : "البريد الإلكتروني مطلوب"
+            );
+            return;
+          }
 
-  document.querySelectorAll("[data-en]").forEach(el => {
-    el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
-  });
+          const user = users.find((u) => u.email === email);
+          if (!user) {
+            showMessage(
+              lang === "en" ? "Email not found" : "البريد الإلكتروني غير موجود"
+            );
+            return;
+          }
 
-  localStorage.setItem("siteLang", lang);
-}
+          // Generate reset link (for example — in real use this would point to your reset page)
+          const resetLink = `https://theartofweb.vercel.app/reset-password.html?email=${encodeURIComponent(
+            email
+          )}`;
 
-// Add button click events
-langEnBtn.addEventListener("click", () => setLanguage("en"));
-langArBtn.addEventListener("click", () => setLanguage("ar"));
+          try {
+            const templateParams = {
+              user_name: user.username || "User",
+              user_email: email,
+              reset_link: resetLink,
+              support_email: "theartofwebsupp@gmail.com",
+            };
 
-// Initialize language on page load
-applySavedLanguage();
-</script>
+            await emailjs.send(
+              "service_qzps9pc",
+              "template_2rgjans",
+              templateParams
+            );
+            showMessage(
+              lang === "en"
+                ? "Reset link sent to your email!"
+                : "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني"
+            );
 
-</body>
+            resetForm.style.display = "none";
+            loginForm.style.display = "block";
+          } catch (error) {
+            console.error("EmailJS error:", error);
+            showMessage(
+              lang === "en"
+                ? "Failed to send reset email. Try again later."
+                : "فشل إرسال البريد الإلكتروني. حاول مرة أخرى لاحقًا."
+            );
+          }
+        });
+
+      // Initial Render
+      renderUserMenu();
+    </script>
+  </body>
 </html>

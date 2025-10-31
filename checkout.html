@@ -1,44 +1,66 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>THE ART OF WEB — Checkout</title>
-  <link href="styles.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: Arial, sans-serif; transition: font 0.2s ease; }
-    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE ART OF WEB — Checkout</title>
+<link href="styles.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: Arial, sans-serif; transition: font 0.2s ease; background:#071018; color:#fff; }
+  html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
 
-    /* Mobile adjustments */
-    @media (max-width: 900px) {
-      .checkout .card { width: 100%; }
-    }
-    @media (max-width: 480px) {
-      .cta { padding: 8px 16px; font-size: 14px; }
-    }
+  header.header, footer.footer { background:#071018; color:#fff; }
+  .container { max-width:1200px; margin:auto; padding:0 20px; }
+  .header .logo img { max-height:80px; }
+  nav.nav a { color:#fff; margin-left:15px; text-decoration:none; font-weight:bold; }
+  nav.nav a:hover { color:#f6b042; }
+  .lang-switch button { padding:4px 8px; margin-left:5px; cursor:pointer; border-radius:4px; border:none; background:#f6b042; color:#000; font-weight:bold; }
+  .lang-switch button:hover { background:#e59c00; }
 
-    /* Language buttons */
-    .lang-switch button {
-      padding: 4px 8px;
-      margin-left: 5px;
-      cursor: pointer;
-    }
-  </style>
+  /* Profile dropdown */
+  .profile-container { position: relative; display:inline-block; cursor:pointer; margin-left:10px; }
+  .profile-container img { width:36px; height:36px; border-radius:50%; border:2px solid #f6b042; }
+  .profile-dropdown { display:none; position:absolute; right:0; background:#0a1a2a; color:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.5); border-radius:8px; padding:10px; min-width:180px; z-index:999; }
+  .profile-dropdown.active { display:block; }
+  .profile-dropdown div { padding:8px 10px; cursor:pointer; color:#fff; }
+  .profile-dropdown div:hover { background:#121212; }
+  .profile-dropdown .email { font-size:12px; cursor:default; }
+
+  /* Checkout card */
+  .checkout .card { background:#1a1a1a; border-radius:12px; padding:30px; max-width:600px; margin:auto; }
+  .checkout .card h2 { color:#f6b042; margin-bottom:15px; }
+  .field { margin-bottom:15px; }
+  .field input, .field select { width:100%; padding:10px; border-radius:6px; border:1px solid #555; background:#0a1a2a; color:#fff; }
+  .cta { padding:12px; width:100%; background:#f6b042; color:#000; border:none; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:10px; }
+  .cta:hover { background:#e59c00; }
+
+  /* Auth modal */
+  .modal { display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.6); justify-content:center; align-items:center; }
+  .modal.active { display:flex; }
+  .modal-content { background:#0a1a2a; color:#fff; padding:30px; border-radius:12px; max-width:400px; width:90%; position:relative; }
+  .close-modal { position:absolute; right:15px; top:10px; font-size:24px; cursor:pointer; color:#fff; }
+  #auth-message { display:none; text-align:center; margin-bottom:10px; font-weight:bold; color:#f6b042; }
+  #auth-modal input { width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:1px solid #555; background:#0a1a2a; color:#fff; }
+  #auth-modal button { width:100%; padding:12px; border:none; border-radius:6px; background:#f6b042; color:#000; font-weight:bold; cursor:pointer; margin-top:5px; }
+  #auth-modal button:hover { background:#e59c00; }
+  .switch { text-align:center; margin-top:8px; cursor:pointer; color:#f6b042; font-size:14px; }
+</style>
 </head>
 <body>
 
 <header class="header fade-in">
   <div class="container">
     <div class="logo">
-      <img src="images/logo.png" alt="THE ART OF WEB Logo" style="max-height:140px;">
+      <img src="images/logo.png" alt="THE ART OF WEB Logo">
       <div style="font-size:1.2rem;font-weight:bold;">THE ART OF WEB</div>
     </div>
     <nav class="nav">
-      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
-      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
-      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
-      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="packs.html">Packs</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <span id="user-menu"></span>
       <span class="lang-switch">
         <button id="lang-en">EN</button>
         <button id="lang-ar">AR</button>
@@ -50,140 +72,193 @@
 <section class="checkout fade-in">
   <div class="container">
     <div class="card">
-      <h2 data-en="Checkout" data-ar="الدفع">Checkout</h2>
-      <p data-en="Fill in your details and select the pack you want to order." data-ar="املأ بياناتك واختر الباقة التي تريد طلبها.">
-        Fill in your details and select the pack you want to order.
-      </p>
+      <h2>Checkout</h2>
+      <p>Fill in your details and select the pack you want to order.</p>
 
-      <!-- Customer Information -->
       <div class="field">
-        <label for="name" data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
+        <label for="name">Full Name</label>
         <input type="text" id="name" placeholder="John Doe" required>
       </div>
 
       <div class="field">
-        <label for="email" data-en="Email" data-ar="البريد الإلكتروني">Email</label>
+        <label for="email">Email</label>
         <input type="email" id="email" placeholder="you@example.com" required>
       </div>
 
       <div class="field">
-        <label for="phone" data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</label>
+        <label for="phone">Phone Number</label>
         <input type="tel" id="phone" placeholder="+212 6XX XXX XXX" required>
       </div>
 
-      <!-- Pack Selection -->
       <div class="field">
-        <label for="pack" data-en="Select Pack" data-ar="اختر الباقة">Select Pack</label>
+        <label for="pack">Select Pack</label>
         <select id="pack">
-          <option value="starter" data-en="Starter Website Pack — 2000 MAD" data-ar="باقة الموقع المبتدئ — 2000 MAD">Starter Website Pack — 2000 MAD</option>
-          <option value="business" data-en="Business Website Pack — 5500 MAD" data-ar="باقة موقع الأعمال — 5500 MAD">Business Website Pack — 5500 MAD</option>
-          <option value="mobile" data-en="Mobile App Pack — 55000 MAD" data-ar="باقة تطبيقات الموبايل — 55000 MAD">Mobile App Pack — 55000 MAD</option>
-          <option value="advanced" data-en="Advanced Web Pack — 9000 MAD" data-ar="باقة الويب المتقدمة — 9000 MAD">Advanced Web Pack — 9000 MAD</option>
-          <option value="enterprise" data-en="Enterprise App Pack — 95000 MAD" data-ar="باقة تطبيقات الشركات — 95000 MAD">Enterprise App Pack — 95000 MAD</option>
-          <option value="custom" data-en="Custom Pack — Contact Us" data-ar="باقة مخصصة — اتصل بنا">Custom Pack — Contact Us</option>
+          <option value="starter">Starter Website Pack — 2000 MAD</option>
+          <option value="business">Business Website Pack — 5500 MAD</option>
+          <option value="mobile">Mobile App Pack — 55000 MAD</option>
+          <option value="advanced">Advanced Web Pack — 9000 MAD</option>
+          <option value="enterprise">Enterprise App Pack — 95000 MAD</option>
+          <option value="custom">Custom Pack — Contact Us</option>
         </select>
       </div>
 
-      <!-- Price Summary -->
       <div class="field">
-        <label data-en="Price" data-ar="السعر">Price</label>
+        <label>Price</label>
         <div id="price" style="font-weight:800;color:#f6b042;font-size:18px;">250$</div>
       </div>
 
-      <!-- Payment Button -->
-      <button class="cta" id="checkout-button" data-en="Proceed to Payment" data-ar="المتابعة للدفع">Proceed to Payment</button>
-      <p class="small" data-en="*Clicking will open WhatsApp to complete your payment." data-ar="*بالضغط سيفتح WhatsApp لإكمال الدفع.">
-        *Clicking will open WhatsApp to complete your payment.
-      </p>
+      <button class="cta" id="checkout-button">Proceed to Payment</button>
+      <p class="small">*Clicking will open WhatsApp to complete your payment.</p>
     </div>
   </div>
 </section>
 
+<!-- Auth Modal -->
+<div class="modal" id="auth-modal">
+  <div class="modal-content">
+    <span class="close-modal" id="close-modal">&times;</span>
+    <div id="auth-message"></div>
+
+    <div id="login-form">
+      <h2>Login</h2>
+      <input type="text" id="login-username" placeholder="Email or Username">
+      <input type="password" id="login-password" placeholder="Password">
+      <div class="switch" id="forgot-pass">Forgot Password?</div>
+      <button id="login-btn">Login</button>
+      <div class="switch" id="show-signup">Don't have an account? Sign Up</div>
+    </div>
+
+    <div id="signup-form" style="display:none">
+      <h2>Sign Up</h2>
+      <input type="text" id="signup-username" placeholder="Username">
+      <input type="email" id="signup-email" placeholder="Email">
+      <input type="email" id="signup-confirm-email" placeholder="Confirm Email">
+      <input type="password" id="signup-password" placeholder="Password">
+      <input type="password" id="signup-confirm-password" placeholder="Confirm Password">
+      <button id="signup-btn">Sign Up</button>
+      <div class="switch" id="show-login">Already have an account? Login</div>
+    </div>
+
+    <div id="reset-form" style="display:none">
+      <h2>Reset Password</h2>
+      <input type="email" id="reset-email" placeholder="Enter your registered email">
+      <button id="reset-btn">Send Reset Link</button>
+      <div class="switch" id="back-to-login">Back to Login</div>
+    </div>
+  </div>
+</div>
+
 <footer class="footer fade-in">
   <div class="container">
     <div class="col">
-      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
+      <h4>Connect with Us</h4>
       <p>
         <a href="https://instagram.com/@the.art.of.web" target="_blank">INSTAGRAM</a><br>
         <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
         <a href="https://wa.me/+212682935120" target="_blank">WhatsApp</a>
       </p>
     </div>
-    <div class="col">
-      <h4 data-en="Payments" data-ar="طرق الدفع">Payments</h4>
-      <p data-en="Visa & Mastercard only" data-ar="Visa & Mastercard فقط">Visa & Mastercard only</p>
-    </div>
   </div>
 </footer>
 
-<!-- Scripts -->
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>emailjs.init("LUva89Ktxhzp_pdRq");</script>
+
 <script>
-const langEnBtn = document.getElementById("lang-en");
-const langArBtn = document.getElementById("lang-ar");
-const packSelect = document.getElementById("pack");
-const priceDiv = document.getElementById("price");
-const checkoutBtn = document.getElementById("checkout-button");
+const priceMap={starter:250,business:650,mobile:7000,advanced:1200,enterprise:12000};
+const packSelect=document.getElementById("pack");
+const priceDiv=document.getElementById("price");
+function updatePrice(){const p=packSelect.value;priceDiv.textContent=priceMap[p]?priceMap[p]+"$":"Contact Us";}
+packSelect.addEventListener("change",updatePrice);updatePrice();
 
-const priceMap = {
-  starter: 250,
-  business: 650,
-  mobile: 7000,
-  advanced: 1200,
-  enterprise: 12000
-};
+const checkoutBtn=document.getElementById("checkout-button");
+const authModal=document.getElementById("auth-modal");
+const loginForm=document.getElementById("login-form");
+const signupForm=document.getElementById("signup-form");
+const resetForm=document.getElementById("reset-form");
+function showMessage(msg){const el=document.getElementById("auth-message");el.style.display="block";el.textContent=msg;setTimeout(()=>el.style.display="none",3000);}
 
-// Language handling
-function applySavedLanguage() {
-  const savedLang = localStorage.getItem("siteLang") || "en";
-  setLanguage(savedLang);
-}
+checkoutBtn.addEventListener("click",()=>{
+  const loggedUser=JSON.parse(localStorage.getItem("loggedUser"));
+  if(!loggedUser){showMessage("Please login first!");authModal.classList.add("active");loginForm.style.display="block";signupForm.style.display="none";resetForm.style.display="none";return;}
+  const pack=packSelect.value;const amount=priceMap[pack]||"Contact Us";
+  if(pack==="custom"){showMessage("Please contact us for a custom pack.");return;}
+  const name=document.getElementById("name").value||loggedUser.username;
+  const email=document.getElementById("email").value||loggedUser.email;
+  const phone=document.getElementById("phone").value||"[Your Phone]";
+  const msg=encodeURIComponent(`Hello, I want to order the ${pack} pack.\nPrice: ${amount}$\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`);
+  window.open(`https://wa.me/+212682935120?text=${msg}`,"_blank");
+});
 
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.body.classList.remove("arabic");
-  if(lang === "ar") document.body.classList.add("arabic");
-
-  document.querySelectorAll("[data-en]").forEach(el => {
-    el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
-  });
-
-  localStorage.setItem("siteLang", lang);
-}
-
-langEnBtn.addEventListener("click", () => setLanguage("en"));
-langArBtn.addEventListener("click", () => setLanguage("ar"));
-applySavedLanguage();
-
-// Update price dynamically
-function updatePrice() {
-  const pack = packSelect.value;
-  const amount = priceMap[pack] || 0;
-  priceDiv.textContent = amount > 0 ? amount + "$" : "Contact Us";
-}
-packSelect.addEventListener("change", updatePrice);
-updatePrice(); // initialize on load
-
-// WhatsApp payment
-checkoutBtn.addEventListener("click", () => {
-  const pack = packSelect.value;
-  const amount = priceMap[pack] || "Contact Us";
-
-  if(pack === "custom") {
-    alert("Please contact us for a custom pack.");
-    return;
+const userMenu=document.getElementById("user-menu");
+function renderUserMenu(){
+  const user=JSON.parse(localStorage.getItem("loggedUser"));
+  if(user){
+    userMenu.innerHTML=`<div class="profile-container" id="profile-container">
+      <img src="profile-logo.png" alt="Profile">
+      <div class="profile-dropdown" id="profile-dropdown">
+        <div>👤 ${user.username}</div>
+        <div class="email">${user.email}</div>
+        <div id="logout">Logout</div></div></div>`;
+    const pc=document.getElementById("profile-container");
+    const pd=document.getElementById("profile-dropdown");
+    pc.addEventListener("click",()=>pd.classList.toggle("active"));
+    document.getElementById("logout").addEventListener("click",()=>{localStorage.removeItem("loggedUser");renderUserMenu();});
+  } else {
+    userMenu.innerHTML=`<div class="profile-container" id="profile-container">
+      <img src="profile-logo.png" alt="Profile">
+      <div class="profile-dropdown" id="profile-dropdown"><div id="login-link">Login / Sign Up</div></div></div>`;
+    const pc=document.getElementById("profile-container");
+    const pd=document.getElementById("profile-dropdown");
+    pc.addEventListener("click",()=>pd.classList.toggle("active"));
+    document.getElementById("login-link").addEventListener("click",()=>{authModal.classList.add("active");loginForm.style.display="block";signupForm.style.display="none";resetForm.style.display="none";});
   }
+}
+renderUserMenu();
 
-  const name = document.getElementById("name").value || "[Your Name]";
-  const email = document.getElementById("email").value || "[Your Email]";
-  const phone = document.getElementById("phone").value || "[Your Phone]";
+document.getElementById("close-modal").addEventListener("click",()=>authModal.classList.remove("active"));
+document.getElementById("show-signup").addEventListener("click",()=>{loginForm.style.display="none";signupForm.style.display="block";resetForm.style.display="none";});
+document.getElementById("show-login").addEventListener("click",()=>{loginForm.style.display="block";signupForm.style.display="none";resetForm.style.display="none";});
+document.getElementById("forgot-pass").addEventListener("click",()=>{loginForm.style.display="none";signupForm.style.display="none";resetForm.style.display="block";});
+document.getElementById("back-to-login").addEventListener("click",()=>{loginForm.style.display="block";signupForm.style.display="none";resetForm.style.display="none";});
 
-  const message = encodeURIComponent(
-    `Hello, I want to order the ${pack} pack.\nPrice: ${amount}$\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`
-  );
+document.getElementById("login-btn").addEventListener("click",()=>{
+  const username=document.getElementById("login-username").value.trim();
+  const password=document.getElementById("login-password").value.trim();
+  const users=JSON.parse(localStorage.getItem("signupUsers")||"[]");
+  const user=users.find(u=>(u.username===username||u.email===username)&&u.password===password);
+  if(user){localStorage.setItem("loggedUser",JSON.stringify(user));authModal.classList.remove("active");renderUserMenu();showMessage("Logged in successfully!");}
+  else showMessage("Invalid credentials.");
+});
 
-  window.open(`https://wa.me/+212682935120?text=${message}`, "_blank");
+document.getElementById("signup-btn").addEventListener("click",()=>{
+  const username=document.getElementById("signup-username").value.trim();
+  const email=document.getElementById("signup-email").value.trim();
+  const confirmEmail=document.getElementById("signup-confirm-email").value.trim();
+  const password=document.getElementById("signup-password").value.trim();
+  const confirmPassword=document.getElementById("signup-confirm-password").value.trim();
+  const users=JSON.parse(localStorage.getItem("signupUsers")||"[]");
+  if(!username||!email||!password){showMessage("All fields required");return;}
+  if(email!==confirmEmail){showMessage("Emails do not match");return;}
+  if(password!==confirmPassword){showMessage("Passwords do not match");return;}
+  if(users.some(u=>u.username===username||u.email===email)){showMessage("User already exists");return;}
+  users.push({username,email,password});localStorage.setItem("signupUsers",JSON.stringify(users));
+  localStorage.setItem("loggedUser",JSON.stringify({username,email}));
+  authModal.classList.remove("active");renderUserMenu();showMessage("Sign up successful!");
+});
+
+document.getElementById("reset-btn").addEventListener("click",async()=>{
+  const email=document.getElementById("reset-email").value.trim();
+  const users=JSON.parse(localStorage.getItem("signupUsers")||"[]");
+  const user=users.find(u=>u.email===email);
+  if(!email){showMessage("Email required");return;}
+  if(!user){showMessage("Email not found");return;}
+  const resetLink=`https://theartofweb.vercel.app/reset-password.html?email=${encodeURIComponent(email)}`;
+  const params={user_name:user.username||"User",user_email:email,reset_link:resetLink,support_email:"theartofwebsupp@gmail.com"};
+  try{await emailjs.send("service_qzps9pc","template_2rgjans",params);showMessage("Reset link sent to your email!");resetForm.style.display="none";loginForm.style.display="block";}
+  catch(e){console.error(e);showMessage("Failed to send reset email.");}
 });
 </script>
-
 </body>
 </html>

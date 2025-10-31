@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>My Account — THE ART OF WEB</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        transition: font 0.2s ease;
+      }
+      html[lang="ar"] body {
+        font-family: "Cairo", sans-serif;
+      }
+
+      .account-container {
+        max-width: 600px;
+        margin: 100px auto;
+        background: #1a1a1a;
+        color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      }
+
+      .account-container h2 {
+        margin-bottom: 10px;
+      }
+      .info {
+        margin-bottom: 20px;
+        color: #ccc;
+      }
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn-row button,
+      .btn-row a {
+        background: #f6b042;
+        border: none;
+        color: #000;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .btn-row button:hover,
+      .btn-row a:hover {
+        background: #ffca58;
+      }
+
+      .lang-switch button {
+        padding: 4px 8px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header fade-in">
+      <div class="container">
+        <div class="logo">
+          <img
+            src="images/logo.png"
+            alt="THE ART OF WEB Logo"
+            style="max-height: 140px"
+          />
+          <div>THE ART OF WEB</div>
+        </div>
+        <nav class="nav">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+          <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+          <a href="contact.html" data-en="Contact" data-ar="اتصل بنا"
+            >Contact</a
+          >
+          <span class="lang-switch">
+            <button id="lang-en">EN</button>
+            <button id="lang-ar">AR</button>
+          </span>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Account Section -->
+    <section class="account fade-in">
+      <div class="account-container">
+        <h2 data-en="My Account" data-ar="حسابي">My Account</h2>
+        <div class="info">
+          <p>
+            <strong data-en="Name:" data-ar="الاسم:"></strong>
+            <span id="user-name"></span>
+          </p>
+          <p>
+            <strong data-en="Email:" data-ar="البريد الإلكتروني:"></strong>
+            <span id="user-email"></span>
+          </p>
+        </div>
+        <div class="btn-row">
+          <a
+            href="settings.html"
+            data-en="Account Settings"
+            data-ar="إعدادات الحساب"
+            >Account Settings</a
+          >
+          <button id="logout-btn" data-en="Logout" data-ar="تسجيل الخروج">
+            Logout
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer fade-in">
+      <div class="container">
+        <p style="text-align: center; color: #ccc">© 2025 THE ART OF WEB</p>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // ===== Language Switch =====
+      const langEnBtn = document.getElementById("lang-en");
+      const langArBtn = document.getElementById("lang-ar");
+
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          el.textContent = lang === "en" ? el.dataset.en : el.dataset.ar;
+        });
+        localStorage.setItem("siteLang", lang);
+      }
+
+      function applyLang() {
+        setLanguage(localStorage.getItem("siteLang") || "en");
+      }
+
+      langEnBtn.addEventListener("click", () => setLanguage("en"));
+      langArBtn.addEventListener("click", () => setLanguage("ar"));
+      applyLang();
+
+      // ===== Load User Info =====
+      const user = JSON.parse(localStorage.getItem("user"));
+      const userName = document.getElementById("user-name");
+      const userEmail = document.getElementById("user-email");
+
+      if (!user) {
+        alert("Please login first!");
+        window.location.href = "login.html";
+      } else {
+        userName.textContent = user.fullname;
+        userEmail.textContent = user.email;
+      }
+
+      // ===== Logout =====
+      document.getElementById("logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("user");
+        alert("You have been logged out.");
+        window.location.href = "login.html";
+      });
+    </script>
+  </body>
+</html>

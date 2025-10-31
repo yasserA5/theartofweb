@@ -1,289 +1,1069 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>THE ART OF WEB — Home</title>
-  <link href="styles.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body.arabic { font-family: 'Cairo', sans-serif; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>THE ART OF WEB — Home</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
-    @media (max-width: 900px) {
-      .hero-left, .hero-right { flex: 1 1 100%; }
-      .story-images { flex-direction: column; align-items: center; }
-      .pack-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 480px) {
-      .hero-title { font-size: 26px; }
-      .cta, .btn-inline { padding: 8px 16px; font-size: 14px; }
-    }
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      // Initialize EmailJS with public key you provided
+      (function () {
+        try {
+          emailjs.init("LUva89Ktxhzp_pdRq");
+        } catch (e) {
+          // ignore if SDK not loaded
+          console.warn("EmailJS init failed", e);
+        }
+      })();
+    </script>
 
-    /* Language switch inside nav */
-    .lang-switch { display: inline-flex; gap: 5px; }
-    .lang-switch button {
-      padding: 5px 10px;
-      border: 1px solid #333;
-      background: #fff;
-      cursor: pointer;
-      font-weight: bold;
-      border-radius: 4px;
-      transition: 0.2s;
-    }
-    .lang-switch button:hover { background: #333; color: #fff; }
+    <style>
+      body.arabic {
+        font-family: "Cairo", sans-serif;
+        direction: rtl;
+        text-align: right;
+      }
+      body.english {
+        direction: ltr;
+        text-align: left;
+      }
+      body {
+        background: #071018;
+        color: #fff;
+      }
 
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center; align-items: center;
-    }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 400px;
-      width: 90%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      position: relative;
-      animation: slideIn 0.3s ease;
-    }
-    @keyframes slideIn { from { transform: translateY(-50px); opacity:0;} to { transform:translateY(0); opacity:1;} }
-    .modal-content h2 { margin-bottom:20px; text-align:center;}
-    .modal-content .field { margin-bottom:15px;}
-    .modal-content input { width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;}
-    .modal-content button { width:100%; padding:12px; border:none; border-radius:6px; background:#f6b042; color:#fff; font-weight:bold; cursor:pointer; }
-    .modal-content button:hover { background:#e59c00; }
-    .modal-content .switch { margin-top:10px; text-align:center; font-size:14px; cursor:pointer; color:#007bff; }
-    .modal-content .switch:hover { text-decoration:underline; }
-    .close-modal { position:absolute; right:15px; top:10px; font-size:24px; cursor:pointer; color:#555; }
-  </style>
-</head>
-<body>
+      /* Responsive adjustments */
+      @media (max-width: 900px) {
+        .hero-left,
+        .hero-right {
+          flex: 1 1 100%;
+        }
+        .story-images {
+          flex-direction: column;
+          align-items: center;
+        }
+        .pack-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero-title {
+          font-size: 26px;
+        }
+        .cta,
+        .btn-inline {
+          padding: 8px 16px;
+          font-size: 14px;
+        }
+      }
 
-<header class="header fade-in">
-  <div class="container">
-    <div class="logo">
-      <img src="images/logo.png" alt="THE ART OF WEB Logo">
-      <div>THE ART OF WEB</div>
-    </div>
-    <nav class="nav">
-      <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
-      <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
-      <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
-      <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
-      <span id="user-menu"></span>
-      <span class="lang-switch">
-        <button id="lang-en">EN</button>
-        <button id="lang-ar">AR</button>
-      </span>
-    </nav>
-  </div>
-</header>
+      /* language switch */
+      .lang-switch {
+        display: inline-flex;
+        gap: 5px;
+      }
+      .lang-switch button {
+        padding: 5px 10px;
+        border: 1px solid #555;
+        background: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 4px;
+        transition: 0.2s;
+      }
+      .lang-switch button:hover {
+        background: #555;
+        color: #fff;
+      }
 
-<section class="hero">
-  <div class="container">
-    <div class="hero-left fade-in">
-      <h1 class="hero-title" data-en="We build websites & apps that grow your business" data-ar="نحن نبني مواقع وتطبيقات تنمي أعمالك">
-        We build websites & apps that grow your business
-      </h1>
-      <p class="hero-sub" data-en="THE ART OF WEB — modern web and mobile development." data-ar="THE ART OF WEB — تطوير الويب والتطبيقات الحديثة.">
-        THE ART OF WEB — modern web and mobile development.
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+      }
+      .modal.active {
+        display: flex;
+      }
+      .modal-content {
+        background: #0a1a2a;
+        color: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 420px;
+        width: 92%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        position: relative;
+        animation: slideIn 0.28s ease;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateY(-40px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .modal-content h2 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .modal-content .field {
+        margin-bottom: 12px;
+      }
+      .modal-content input,
+      .modal-content textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #555;
+        background: #1a1a1a;
+        color: #fff;
+      }
+      .modal-content button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        background: #f6b042;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .modal-content button:hover {
+        background: #e59c00;
+        color: #000;
+      }
+      .modal-content .switch {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 14px;
+        cursor: pointer;
+        color: #f6b042;
+      }
+      .modal-content .switch:hover {
+        text-decoration: underline;
+      }
+      .close-modal {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #fff;
+      }
+
+      /* Profile styles */
+      .profile-container {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+      .profile-container img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid #f6b042;
+        display: block;
+      }
+      .profile-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        background: #0a1a2a;
+        color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        padding: 10px;
+        min-width: 180px;
+        z-index: 999;
+      }
+      .profile-dropdown.active {
+        display: block;
+      }
+      .profile-dropdown div {
+        padding: 8px 10px;
+        cursor: pointer;
+        color: #fff;
+      }
+      .profile-dropdown div:hover {
+        background: #121212;
+      }
+      .profile-dropdown .email {
+        font-size: 12px;
+        cursor: default;
+      }
+
+      /* main blocks */
+      .packs {
+        padding: 50px 20px;
+        text-align: center;
+        background: #071018;
+        color: #fff;
+      }
+      .packs h2 {
+        margin-bottom: 40px;
+        color: #fff;
+      }
+      .pack-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .pack-card {
+        border: none;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        background: #1a1a1a;
+        color: #fff;
+      }
+      .pack-card img {
+        max-width: 100%;
+        border-radius: 6px;
+      }
+      .pack-card h3 {
+        margin: 15px 0;
+        color: #fff;
+      }
+      .pack-card a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #f6b042;
+        color: #000;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .pack-card a:hover {
+        background: #e59c00;
+        color: #000;
+      }
+
+      .about {
+        padding: 50px 20px;
+        text-align: center;
+        color: #fff;
+      }
+      .about h2 {
+        margin-bottom: 20px;
+        color: #fff;
+      }
+      .about p {
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #d7d7d7;
+      }
+
+      header.header {
+        background: #071018;
+        color: #fff;
+        display: block;
+        padding: 18px 0;
+      }
+      .header .container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .logo img {
+        height: 40px;
+        display: block;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .hero {
+        background: #071018;
+        color: #fff;
+        padding: 50px 0;
+      }
+      .hero .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        padding: 0 20px;
+      }
+      .hero-left {
+        flex: 1;
+      }
+      .hero-right {
+        flex: 1;
+        text-align: center;
+      }
+      .hero-right img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      /* footer */
+      footer.footer {
+        background: #071018;
+        color: #fff;
+        padding: 28px 0;
+      }
+      footer.footer a {
+        color: #fff;
+        text-decoration: none;
+      }
+      footer.footer a:hover {
+        color: #f6b042;
+        text-decoration: underline;
+      }
+
+      /* inline message */
+      .form-message-inline {
+        margin-top: 8px;
+        font-size: 14px;
+        text-align: center;
+        display: block;
+      }
+
+      /* small screens */
+      @media (max-width: 720px) {
+        .nav {
+          gap: 8px;
+        }
+        .profile-container {
+          margin-left: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body class="english">
+    <!-- Header -->
+    <header class="header fade-in">
+      <div class="container">
+        <div class="logo">
+          <img src="images/logo.png" alt="THE ART OF WEB Logo" />
+          <div>THE ART OF WEB</div>
+        </div>
+        <nav class="nav">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <a href="packs.html" data-en="Packs" data-ar="الباقات">Packs</a>
+          <a href="about.html" data-en="About Us" data-ar="من نحن">About Us</a>
+          <a href="contact.html" data-en="Contact" data-ar="اتصل بنا"
+            >Contact</a
+          >
+
+          <!-- Profile Icon -->
+          <div
+            class="profile-container"
+            id="profile-container"
+            aria-haspopup="true"
+          >
+            <img src="profile-logo.png" alt="Profile Icon" id="profile-icon" />
+            <div class="profile-dropdown" id="profile-dropdown">
+              <div
+                id="login-signup-item"
+                data-en="Login / Sign Up"
+                data-ar="تسجيل الدخول / إنشاء حساب"
+              >
+                Login / Sign Up
+              </div>
+            </div>
+          </div>
+
+          <span class="lang-switch">
+            <button id="lang-en">EN</button>
+            <button id="lang-ar">AR</button>
+          </span>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-left fade-in">
+          <h1
+            class="hero-title"
+            data-en="We build websites & apps that grow your business"
+            data-ar="نحن نبني مواقع وتطبيقات تنمّي عملك"
+          >
+            We build websites & apps that grow your business
+          </h1>
+          <p
+            class="hero-sub"
+            data-en="THE ART OF WEB — modern web and mobile development."
+            data-ar="فن الويب — تطوير حديث للمواقع والتطبيقات."
+          >
+            THE ART OF WEB — modern web and mobile development.
+          </p>
+          <a
+            class="cta"
+            href="packs.html"
+            data-en="See Packs"
+            data-ar="عرض الباقات"
+            >See Packs</a
+          >
+          <a
+            class="btn-inline"
+            href="contact.html"
+            data-en="Contact Us"
+            data-ar="اتصل بنا"
+            >Contact Us</a
+          >
+        </div>
+        <div class="hero-right fade-in">
+          <img src="hero-image.png" alt="Team working on projects" />
+        </div>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2 data-en="About THE ART OF WEB" data-ar="حول THE ART OF WEB">
+        About THE ART OF WEB
+      </h2>
+      <p
+        data-en="We are a modern web and app development agency offering complete website and mobile app solutions. From design to deployment, we help your business grow online."
+        data-ar="نحن وكالة حديثة لتطوير المواقع والتطبيقات نقدم حلولاً متكاملة من التصميم إلى الإطلاق لمساعدتك على تنمية عملك عبر الإنترنت."
+      >
+        We are a modern web and app development agency offering complete website
+        and mobile app solutions. From design to deployment, we help your
+        business grow online.
       </p>
-      <a class="cta" href="packs.html" data-en="See Packs" data-ar="عرض الباقات">See Packs</a>
-      <a class="btn-inline" href="contact.html" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</a>
-    </div>
-    <div class="hero-right fade-in">
-      <img src="hero-image.png" alt="Team working on projects" style="max-width:100%;height:auto;">
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- Modal -->
-<div class="modal" id="auth-modal">
-  <div class="modal-content">
-    <span class="close-modal" id="close-modal">&times;</span>
+    <section class="packs">
+      <h2 data-en="Our Popular Packs" data-ar="باقاتنا الشهيرة">
+        Our Popular Packs
+      </h2>
+      <div class="pack-grid">
+        <div class="pack-card">
+          <h3 data-en="Starter Website Pack" data-ar="باقة الموقع المبدئي">
+            Starter Website Pack
+          </h3>
+          <div class="price">2000 MAD</div>
+          <ul style="text-align: left; padding-left: 20px">
+            <li data-en="Up to 5 pages" data-ar="حتى 5 صفحات">Up to 5 pages</li>
+            <li data-en="Responsive design" data-ar="تصميم متجاوب">
+              Responsive design
+            </li>
+            <li data-en="Contact form" data-ar="نموذج اتصال">Contact form</li>
+          </ul>
+          <a
+            href="checkout.html?pack=starter"
+            data-en="Order This Pack"
+            data-ar="اطلب هذه الباقة"
+            >Order This Pack</a
+          >
+        </div>
+        <div class="pack-card">
+          <h3 data-en="Business Website Pack" data-ar="باقة موقع الأعمال">
+            Business Website Pack
+          </h3>
+          <div class="price">5500 MAD</div>
+          <ul style="text-align: left; padding-left: 20px">
+            <li data-en="Custom design" data-ar="تصميم مخصص">Custom design</li>
+            <li data-en="CMS integration" data-ar="دمج نظام إدارة المحتوى">
+              CMS integration
+            </li>
+          </ul>
+          <a
+            href="checkout.html?pack=business"
+            data-en="Order This Pack"
+            data-ar="اطلب هذه الباقة"
+            >Order This Pack</a
+          >
+        </div>
+      </div>
+    </section>
 
-    <!-- Login -->
-    <div id="login-form">
-      <h2>Login</h2>
-      <div class="field"><input type="text" id="login-username" placeholder="Email or Username"></div>
-      <div class="field"><input type="password" id="login-password" placeholder="Password"></div>
-      <div class="switch" id="forgot-pass">Forgot Password?</div>
-      <button id="login-btn">Login</button>
-      <div class="switch" id="show-signup">Don't have an account? Sign Up</div>
-    </div>
+    <!-- Auth Modal with Login, Signup, Reset -->
+    <div class="modal" id="auth-modal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true">
+        <span class="close-modal" id="close-modal" aria-label="Close"
+          >&times;</span
+        >
 
-    <!-- Sign Up -->
-    <div id="signup-form" style="display:none;">
-      <h2>Sign Up</h2>
-      <div class="field"><input type="text" id="signup-username" placeholder="Username"></div>
-      <div class="field"><input type="email" id="signup-email" placeholder="Email"></div>
-      <div class="field"><input type="email" id="signup-confirm-email" placeholder="Confirm Email"></div>
-      <div class="field"><input type="password" id="signup-password" placeholder="Password"></div>
-      <div class="field"><input type="password" id="signup-confirm-password" placeholder="Confirm Password"></div>
-      <button id="signup-btn">Sign Up</button>
-      <div class="switch" id="show-login">Already have an account? Login</div>
-    </div>
+        <!-- LOGIN -->
+        <div id="login-form">
+          <h2 data-en="Login" data-ar="تسجيل الدخول">Login</h2>
+          <div class="field">
+            <input
+              type="text"
+              id="login-username"
+              placeholder="Email or Username"
+              data-en="Email or Username"
+              data-ar="البريد الإلكتروني أو اسم المستخدم"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="password"
+              id="login-password"
+              placeholder="Password"
+              data-en="Password"
+              data-ar="كلمة المرور"
+            />
+          </div>
+          <div
+            class="form-message-inline"
+            id="login-message"
+            aria-live="polite"
+          ></div>
+          <div style="display: flex; gap: 10px; margin-top: 12px">
+            <button id="login-btn" data-en="Login" data-ar="تسجيل الدخول">
+              Login
+            </button>
+          </div>
+          <div
+            class="switch"
+            id="forgot-pass"
+            data-en="Forgot Password?"
+            data-ar="نسيت كلمة المرور؟"
+            style="margin-top: 10px; cursor: pointer"
+          >
+            Forgot Password?
+          </div>
+          <div
+            class="switch"
+            id="show-signup"
+            data-en="Don't have an account? Sign Up"
+            data-ar="ليس لديك حساب؟ إنشاء حساب"
+            style="margin-top: 10px; cursor: pointer"
+          >
+            Don't have an account? Sign Up
+          </div>
+        </div>
 
-    <!-- Reset Password -->
-    <div id="reset-form" style="display:none;">
-      <h2>Reset Password</h2>
-      <div class="field"><input type="email" id="reset-email" placeholder="Enter your registered email"></div>
-      <button id="reset-btn">Send Reset Link</button>
-      <div class="switch" id="back-to-login">Back to Login</div>
-    </div>
-  </div>
-</div>
+        <!-- SIGNUP -->
+        <div id="signup-form" style="display: none">
+          <h2 data-en="Sign Up" data-ar="إنشاء حساب">Sign Up</h2>
 
-<footer class="footer fade-in">
-  <div class="container">
-    <div class="col">
-      <h4 data-en="Connect with Us" data-ar="تواصل معنا">Connect with Us</h4>
-      <p>
-        <a href="https://instagram.com/@the.art.of.web" target="_blank">INSTAGRAM</a><br>
-        <a href="mailto:theartofwebsupp@gmail.com">GMAIL: theartofwebsupp@gmail.com</a><br>
-        <a href="https://wa.me/+212682935120" target="_blank">WhatsApp</a>
-      </p>
-      <div style="text-align:center; margin-top:20px; color:#d7d7d7; font-size:14px;">
-        &copy; 2025 THE ART OF WEB. All rights reserved.
+          <div class="field">
+            <input
+              type="text"
+              id="signup-username"
+              placeholder="Username"
+              data-en="Username"
+              data-ar="اسم المستخدم"
+            />
+          </div>
+
+          <div class="field">
+            <input
+              type="email"
+              id="signup-email"
+              placeholder="Email"
+              data-en="Email"
+              data-ar="البريد الإلكتروني"
+            />
+          </div>
+
+          <div class="field">
+            <input
+              type="email"
+              id="signup-confirm-email"
+              placeholder="Confirm Email"
+              data-en="Confirm Email"
+              data-ar="تأكيد البريد الإلكتروني"
+            />
+          </div>
+
+          <div class="field">
+            <input
+              type="password"
+              id="signup-password"
+              placeholder="Password"
+              data-en="Password"
+              data-ar="كلمة المرور"
+            />
+          </div>
+
+          <div class="field">
+            <input
+              type="password"
+              id="signup-confirm-password"
+              placeholder="Confirm Password"
+              data-en="Confirm Password"
+              data-ar="تأكيد كلمة المرور"
+            />
+          </div>
+
+          <button id="signup-btn" data-en="Sign Up" data-ar="إنشاء حساب">
+            Sign Up
+          </button>
+          <div class="form-message" id="signup-message"></div>
+
+          <div
+            class="switch"
+            id="show-login"
+            data-en="Already have an account? Login"
+            data-ar="لديك حساب بالفعل؟ تسجيل الدخول"
+          >
+            Already have an account? Login
+          </div>
+        </div>
+
+        <!-- RESET -->
+        <div id="reset-form" style="display: none">
+          <h2 data-en="Reset Password" data-ar="إعادة تعيين كلمة المرور">
+            Reset Password
+          </h2>
+          <div class="field">
+            <input
+              type="email"
+              id="reset-email"
+              placeholder="Enter your registered email"
+              data-en="Enter your registered email"
+              data-ar="أدخل بريدك الإلكتروني المسجل"
+            />
+          </div>
+          <div
+            class="form-message-inline"
+            id="reset-message"
+            aria-live="polite"
+          ></div>
+          <div style="display: flex; gap: 10px; margin-top: 12px">
+            <button
+              id="reset-btn"
+              data-en="Send Reset Link"
+              data-ar="إرسال رابط إعادة التعيين"
+            >
+              Send Reset Link
+            </button>
+          </div>
+          <div
+            class="switch"
+            id="back-to-login"
+            data-en="Back to Login"
+            data-ar="العودة لتسجيل الدخول"
+            style="margin-top: 10px; cursor: pointer"
+          >
+            Back to Login
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  emailjs.init("LUva89Ktxhzp_pdRq");
+    <footer class="footer fade-in">
+      <div class="container">
+        <div class="col">
+          <h4 data-en="Connect with Us" data-ar="تواصل معنا">
+            Connect with Us
+          </h4>
+          <p>
+            <a href="https://instagram.com/@the.art.of.web" target="_blank"
+              >INSTAGRAM</a
+            ><br />
+            <a href="mailto:theartofwebsupp@gmail.com"
+              >GMAIL: theartofwebsupp@gmail.com</a
+            ><br />
+            <a href="https://wa.me/+212682935120" target="_blank">WhatsApp</a>
+          </p>
+          <div style="text-align: center; margin-top: 20px; font-size: 14px">
+            © 2025 THE ART OF WEB. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
 
-  const langEnBtn = document.getElementById("lang-en");
-  const langArBtn = document.getElementById("lang-ar");
-  function setLanguage(lang){
-    document.documentElement.lang=lang;
-    document.body.classList.remove("arabic");
-    if(lang==="ar") document.body.classList.add("arabic");
-    document.querySelectorAll("[data-en]").forEach(el=>{
-      el.textContent = lang==="en"? el.dataset.en : el.dataset.ar;
-    });
-    localStorage.setItem("siteLang",lang);
-  }
-  const savedLang = localStorage.getItem("siteLang") || "en";
-  setLanguage(savedLang);
-  langEnBtn.addEventListener("click",()=>setLanguage("en"));
-  langArBtn.addEventListener("click",()=>setLanguage("ar"));
+    <script>
+      /* ---------- Utility: inline message ---------- */
+      function showInlineMessage(id, message, color) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = message;
+        el.style.display = "block";
+        el.style.color = color || "#f6b042";
+        // clear after 4s
+        setTimeout(() => {
+          if (el) el.textContent = "";
+        }, 4000);
+      }
 
-  // Auth modal
-  const userMenu=document.getElementById("user-menu");
-  const authModal=document.getElementById("auth-modal");
-  const closeModal=document.getElementById("close-modal");
-  const loginForm=document.getElementById("login-form");
-  const signupForm=document.getElementById("signup-form");
-  const resetForm=document.getElementById("reset-form");
-  const showSignup=document.getElementById("show-signup");
-  const showLogin=document.getElementById("show-login");
-  const forgotPass=document.getElementById("forgot-pass");
-  const backToLogin=document.getElementById("back-to-login");
+      /* ---------- Translation / Language ---------- */
+      function translatePage(lang) {
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          const text =
+            el.getAttribute("data-" + lang) || el.getAttribute("data-en");
+          // inputs: placeholder
+          if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+            el.placeholder = text;
+          } else {
+            el.textContent = text;
+          }
+        });
+      }
+      function setLanguage(lang) {
+        localStorage.setItem("siteLang", lang);
+        document.body.classList.remove("english", "arabic");
+        document.body.classList.add(lang === "ar" ? "arabic" : "english");
+        translatePage(lang);
+        updateProfileDropdownWords();
+      }
+      document
+        .getElementById("lang-en")
+        .addEventListener("click", () => setLanguage("en"));
+      document
+        .getElementById("lang-ar")
+        .addEventListener("click", () => setLanguage("ar"));
+      setLanguage(localStorage.getItem("siteLang") || "en");
 
-  function renderUserMenu(){
-    const user=JSON.parse(localStorage.getItem("loggedUser"));
-    if(user){
-      userMenu.innerHTML=`<span>Hello, ${user.username}</span> | <a href="#" id="logout">Logout</a>`;
-      document.getElementById("logout").addEventListener("click",()=>{
-        localStorage.removeItem("loggedUser");
+      /* ---------- Profile menu rendering ---------- */
+      const profileContainer = document.getElementById("profile-container");
+      const profileDropdown = document.getElementById("profile-dropdown");
+      const authModal = document.getElementById("auth-modal");
+      const closeModal = document.getElementById("close-modal");
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const resetForm = document.getElementById("reset-form");
+
+      function updateProfileDropdownWords() {
+        const lang = localStorage.getItem("siteLang") || "en";
+        // If dropdown has login-signup item, update its text
+        const loginSignupItem = document.getElementById("login-signup-item");
+        if (loginSignupItem) {
+          loginSignupItem.textContent =
+            lang === "en" ? "Login / Sign Up" : "تسجيل الدخول / إنشاء حساب";
+        }
+      }
+      updateProfileDropdownWords();
+
+      let loggedUser = JSON.parse(localStorage.getItem("loggedUser") || "null");
+
+      function renderUserMenu() {
+        const lang = localStorage.getItem("siteLang") || "en";
+        // If loggedUser exists, change dropdown content
+        if (loggedUser) {
+          profileDropdown.innerHTML = `
+      <div class="username">👤 ${escapeHtml(loggedUser.username)}</div>
+      <div class="email">${escapeHtml(loggedUser.email)}</div>
+      <div id="logout-btn">${lang === "en" ? "Logout" : "تسجيل الخروج"}</div>
+    `;
+          // attach logout
+          const logoutBtn = document.getElementById("logout-btn");
+          if (logoutBtn) {
+            logoutBtn.onclick = () => {
+              localStorage.removeItem("loggedUser");
+              loggedUser = null;
+              renderUserMenu();
+              showInlineMessage(
+                "login-message",
+                lang === "en" ? "✅ Logged out" : "✅ تم تسجيل الخروج",
+                "#4caf50"
+              );
+            };
+          }
+        } else {
+          profileDropdown.innerHTML = `<div id="login-signup-item">${
+            lang === "en" ? "Login / Sign Up" : "تسجيل الدخول / إنشاء حساب"
+          }</div>`;
+          const item = document.getElementById("login-signup-item");
+          if (item) {
+            item.onclick = (e) => {
+              e.stopPropagation();
+              authModal.classList.add("active");
+              loginForm.style.display = "block";
+              signupForm.style.display = "none";
+              resetForm.style.display = "none";
+              translatePage(localStorage.getItem("siteLang") || "en");
+            };
+          }
+        }
+      }
+      renderUserMenu();
+
+      // clicking profile toggles dropdown
+      profileContainer.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("active");
+      });
+      // close dropdown if click outside
+      document.addEventListener("click", () =>
+        profileDropdown.classList.remove("active")
+      );
+
+      /* ---------- Modal controls ---------- */
+      closeModal.addEventListener("click", () =>
+        authModal.classList.remove("active")
+      );
+      document.getElementById("show-signup").addEventListener("click", () => {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+        resetForm.style.display = "none";
+        translatePage(localStorage.getItem("siteLang") || "en");
+      });
+      document.getElementById("show-login").addEventListener("click", () => {
+        signupForm.style.display = "none";
+        loginForm.style.display = "block";
+        resetForm.style.display = "none";
+        translatePage(localStorage.getItem("siteLang") || "en");
+      });
+      document.getElementById("forgot-pass").addEventListener("click", () => {
+        loginForm.style.display = "none";
+        signupForm.style.display = "none";
+        resetForm.style.display = "block";
+        translatePage(localStorage.getItem("siteLang") || "en");
+      });
+      document.getElementById("back-to-login").addEventListener("click", () => {
+        resetForm.style.display = "none";
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        translatePage(localStorage.getItem("siteLang") || "en");
+      });
+
+      /* ---------- Auth: Signup / Login / Reset ---------- */
+
+      // small helper to escape user-provided strings when showing in DOM
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str).replace(/[&<>"']/g, function (m) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          }[m];
+        });
+      }
+
+      /* SIGNUP */
+      document.getElementById("signup-btn").onclick = () => {
+        const username = document
+          .getElementById("signup-username")
+          .value.trim();
+        const email = document.getElementById("signup-email").value.trim();
+        const confirmEmail = document
+          .getElementById("signup-confirm-email")
+          .value.trim();
+        const password = document
+          .getElementById("signup-password")
+          .value.trim();
+        const confirmPassword = document
+          .getElementById("signup-confirm-password")
+          .value.trim();
+        const msg = document.getElementById("signup-message");
+        const lang = localStorage.getItem("siteLang") || "en";
+
+        msg.className = "form-message"; // reset classes
+        msg.textContent = ""; // clear previous message
+
+        if (
+          !username ||
+          !email ||
+          !confirmEmail ||
+          !password ||
+          !confirmPassword
+        ) {
+          msg.textContent =
+            lang === "ar" ? "جميع الحقول مطلوبة" : "All fields are required";
+          msg.classList.add("error");
+          return;
+        }
+
+        if (email !== confirmEmail) {
+          msg.textContent =
+            lang === "ar"
+              ? "البريد الإلكتروني غير متطابق"
+              : "Emails do not match";
+          msg.classList.add("error");
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          msg.textContent =
+            lang === "ar"
+              ? "كلمات المرور غير متطابقة"
+              : "Passwords do not match";
+          msg.classList.add("error");
+          return;
+        }
+
+        const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+        if (users.some((u) => u.email === email)) {
+          msg.textContent =
+            lang === "ar"
+              ? "البريد الإلكتروني موجود بالفعل"
+              : "Email already exists";
+          msg.classList.add("error");
+          return;
+        }
+
+        const newUser = { username, email, password };
+        users.push(newUser);
+        localStorage.setItem("signupUsers", JSON.stringify(users));
+        localStorage.setItem("loggedUser", JSON.stringify(newUser));
+        loggedUser = newUser;
+        updateProfileMenu();
+
+        msg.textContent =
+          lang === "ar"
+            ? "تم إنشاء الحساب بنجاح!"
+            : "Account created successfully!";
+        msg.classList.add("success");
+
+        // Close modal after 1.5s
+        setTimeout(() => {
+          authModal.classList.remove("active");
+          msg.textContent = "";
+        }, 1500);
+      };
+
+      /* LOGIN */
+      document.getElementById("login-btn").addEventListener("click", () => {
+        const usernameInput = document
+          .getElementById("login-username")
+          .value.trim();
+        const password = document.getElementById("login-password").value.trim();
+        const lang = localStorage.getItem("siteLang") || "en";
+
+        if (!usernameInput || !password) {
+          showInlineMessage(
+            "login-message",
+            lang === "en"
+              ? "⚠ Enter username/email and password"
+              : "⚠ أدخل اسم المستخدم/البريد وكلمة المرور",
+            "#f44336"
+          );
+          return;
+        }
+
+        const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+        const found = users.find(
+          (u) =>
+            (u.username === usernameInput || u.email === usernameInput) &&
+            u.password === password
+        );
+        if (found) {
+          localStorage.setItem("loggedUser", JSON.stringify(found));
+          loggedUser = found;
+          authModal.classList.remove("active");
+          renderUserMenu();
+          showInlineMessage(
+            "login-message",
+            lang === "en"
+              ? "✅ Logged in successfully!"
+              : "✅ تم تسجيل الدخول بنجاح!",
+            "#4caf50"
+          );
+        } else {
+          showInlineMessage(
+            "login-message",
+            lang === "en"
+              ? "❌ Invalid credentials."
+              : "❌ بيانات تسجيل الدخول غير صحيحة.",
+            "#f44336"
+          );
+        }
+      });
+
+      /* RESET PASSWORD (EmailJS) */
+      document.getElementById("reset-btn").addEventListener("click", () => {
+        const email = document.getElementById("reset-email").value.trim();
+        const lang = localStorage.getItem("siteLang") || "en";
+        const users = JSON.parse(localStorage.getItem("signupUsers") || "[]");
+
+        if (!email) {
+          showInlineMessage(
+            "reset-message",
+            lang === "en"
+              ? "⚠ Please enter your email address."
+              : "⚠ يرجى إدخال بريدك الإلكتروني.",
+            "#f44336"
+          );
+          return;
+        }
+
+        if (!users.some((u) => u.email === email)) {
+          showInlineMessage(
+            "reset-message",
+            lang === "en"
+              ? "❌ This email is not registered."
+              : "❌ هذا البريد الإلكتروني غير مسجل.",
+            "#f44336"
+          );
+          return;
+        }
+
+        // Prepare data for your template. Template must have variables: user_name, user_email, reset_link, support_email
+        const resetLinkPlaceholder = `https://theartofweb.vercel.app/reset-password.html?email=${encodeURIComponent(
+          email
+        )}`;
+        const templateParams = {
+          user_name: email.split("@")[0] || "User",
+          user_email: email,
+          reset_link: resetLinkPlaceholder,
+          support_email: "theartofwebsupp@gmail.com",
+        };
+
+        // send via EmailJS (service & template IDs you provided)
+        emailjs
+          .send("service_qzps9pc", "template_2rgjans", templateParams)
+          .then(
+            function (response) {
+              // success
+              showInlineMessage(
+                "reset-message",
+                lang === "en"
+                  ? "✅ Reset link sent! Check your email."
+                  : "✅ تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني",
+                "#4caf50"
+              );
+              // optionally close modal after short delay and show login
+              setTimeout(() => {
+                resetForm.style.display = "none";
+                loginForm.style.display = "block";
+                // don't auto-login, just show message
+              }, 2000);
+            },
+            function (error) {
+              console.error("EmailJS error:", error);
+              showInlineMessage(
+                "reset-message",
+                lang === "en"
+                  ? "❌ Failed to send email. Try again later."
+                  : "❌ فشل إرسال البريد الإلكتروني. حاول مرة أخرى لاحقاً",
+                "#f44336"
+              );
+            }
+          );
+      });
+
+      /* ---------- Initial translate & render ---------- */
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("siteLang") || "en";
+        setLanguage(savedLang);
         renderUserMenu();
       });
-    } else {
-      userMenu.innerHTML=`<a href="#" id="login-link">Login / Sign Up</a>`;
-      document.getElementById("login-link").addEventListener("click",()=>{
-        authModal.classList.add("active");
-        loginForm.style.display="block";
-        signupForm.style.display="none";
-        resetForm.style.display="none";
-      });
-    }
-  }
-  renderUserMenu();
-  closeModal.addEventListener("click",()=>authModal.classList.remove("active"));
-  showSignup.addEventListener("click",()=>{
-    loginForm.style.display="none";
-    signupForm.style.display="block";
-    resetForm.style.display="none";
-  });
-  showLogin.addEventListener("click",()=>{
-    loginForm.style.display="block";
-    signupForm.style.display="none";
-    resetForm.style.display="none";
-  });
-
-  // Login
-  document.getElementById("login-btn").addEventListener("click",()=>{
-    const username=document.getElementById("login-username").value.trim();
-    const password=document.getElementById("login-password").value.trim();
-    const users=JSON.parse(localStorage.getItem("signupUsers")||"[]");
-    const user=users.find(u=>(u.username===username||u.email===username)&&u.password===password);
-    if(user){
-      localStorage.setItem("loggedUser",JSON.stringify(user));
-      authModal.classList.remove("active");
-      renderUserMenu();
-      alert("Logged in successfully!");
-    } else alert("Invalid credentials.");
-  });
-
-  // Sign Up
-  document.getElementById("signup-btn").addEventListener("click",()=>{
-    const username=document.getElementById("signup-username").value.trim();
-    const email=document.getElementById("signup-email").value.trim();
-    const confirmEmail=document.getElementById("signup-confirm-email").value.trim();
-    const password=document.getElementById("signup-password").value.trim();
-    const confirmPassword=document.getElementById("signup-confirm-password").value.trim();
-
-    if(!username||!email||!confirmEmail||!password||!confirmPassword){alert("Please fill all fields."); return;}
-    if(email!==confirmEmail){alert("Emails do not match."); return;}
-    if(password!==confirmPassword){alert("Passwords do not match."); return;}
-    if(!/^(?=.*[0-9])(?=.{8,})/.test(password)){alert("Password must be 8+ chars with a number."); return;}
-
-    let users=JSON.parse(localStorage.getItem("signupUsers")||"[]");
-    if(users.find(u=>u.email===email)){alert("Email already registered."); return;}
-    const newUser={username,email,password};
-    users.push(newUser);
-    localStorage.setItem("signupUsers",JSON.stringify(users));
-    localStorage.setItem("loggedUser",JSON.stringify(newUser));
-    authModal.classList.remove("active");
-    renderUserMenu();
-    alert("Signed up successfully!");
-  });
-
-  // Forgot Password
-  forgotPass.addEventListener("click",()=>{
-    loginForm.style.display="none";
-    signupForm.style.display="none";
-    resetForm.style.display="block";
-  });
-  backToLogin.addEventListener("click",()=>{
-    resetForm.style.display="none";
-    loginForm.style.display="block";
-  });
-  document.getElementById("reset-btn").addEventListener("click",()=>{
-    const email=document.getElementById("reset-email").value.trim();
-    if(!email){alert("Please enter your email."); return;}
-    emailjs.send("service_qzps9pc","template_2rgjans",{
-      user_name:email,
-      user_email:email,
-      reset_link:`https://theartofweb.vercel.app/reset-password.html?email=${encodeURIComponent(email)}`,
-      support_email:"theartofwebsupp@gmail.com"
-    })
-    .then(()=>{
-      alert("✅ Password reset email sent! Check your inbox.");
-      resetForm.style.display="none";
-      loginForm.style.display="block";
-    })
-    .catch(()=>alert("⚠️ Error sending email. Try again later."));
-  });
-</script>
-</body>
+    </script>
+  </body>
 </html>
