@@ -161,6 +161,151 @@
   </div>
 </footer>
 
+
+<script>
+let lang = "en"; // default language
+
+// Your translations object
+const translations = {
+  en: {
+    navHome: "Home",
+    navPacks: "Packs",
+    navAbout: "About Us",
+    navContact: "Contact",
+    checkoutTitle: "Checkout",
+    checkoutDesc: "Fill in your details and select the pack you want to order.",
+    nameLabel: "Full Name",
+    emailLabel: "Email",
+    phoneLabel: "Phone Number",
+    packLabel: "Select Pack",
+    priceLabel: "Price",
+    proceedBtn: "Proceed to Payment",
+    forgotPass: "Forgot Password?",
+    loginTitle: "Login",
+    signupTitle: "Sign Up",
+    resetTitle: "Reset Password",
+    backToLogin: "Back to Login",
+    signupSwitch: "Don't have an account? Sign Up",
+    loginSwitch: "Already have an account? Login",
+    footerInstagram: "INSTAGRAM",
+    footerEmail: "GMAIL: theartofwebsupp@gmail.com",
+    footerWhatsapp: "WhatsApp",
+    profileLogout: "Logout",
+    profileLogin: "Login / Sign Up"
+  },
+  ar: {
+    navHome: "الرئيسية",
+    navPacks: "الباقات",
+    navAbout: "من نحن",
+    navContact: "تواصل معنا",
+    checkoutTitle: "الدفع",
+    checkoutDesc: "املأ بياناتك واختر الباك الذي تريد طلبه.",
+    nameLabel: "الاسم الكامل",
+    emailLabel: "البريد الإلكتروني",
+    phoneLabel: "رقم الهاتف",
+    packLabel: "اختر الباك",
+    priceLabel: "السعر",
+    proceedBtn: "المتابعة للدفع",
+    forgotPass: "نسيت كلمة المرور؟",
+    loginTitle: "تسجيل الدخول",
+    signupTitle: "إنشاء حساب",
+    resetTitle: "إعادة تعيين كلمة المرور",
+    backToLogin: "العودة لتسجيل الدخول",
+    signupSwitch: "ليس لديك حساب؟ أنشئ حساب",
+    loginSwitch: "لديك حساب؟ تسجيل الدخول",
+    footerInstagram: "إنستجرام",
+    footerEmail: "البريد الإلكتروني: theartofwebsupp@gmail.com",
+    footerWhatsapp: "واتساب",
+    profileLogout: "تسجيل الخروج",
+    profileLogin: "تسجيل الدخول / إنشاء حساب"
+  }
+};
+
+// Update all texts
+function updateTexts() {
+  const t = translations[lang];
+
+  // Navbar
+  document.querySelector('nav.nav a[href="index.html"]').textContent = t.navHome;
+  document.querySelector('nav.nav a[href="packs.html"]').textContent = t.navPacks;
+  document.querySelector('nav.nav a[href="about.html"]').textContent = t.navAbout;
+  document.querySelector('nav.nav a[href="contact.html"]').textContent = t.navContact;
+
+  // Checkout section
+  document.querySelector(".checkout h2").textContent = t.checkoutTitle;
+  document.querySelector(".checkout p").textContent = t.checkoutDesc;
+  document.querySelector('label[for="name"]').textContent = t.nameLabel;
+  document.querySelector('label[for="email"]').textContent = t.emailLabel;
+  document.querySelector('label[for="phone"]').textContent = t.phoneLabel;
+  document.querySelector('label[for="pack"]').textContent = t.packLabel;
+  document.querySelector('label[for="price"]').textContent = t.priceLabel;
+  document.getElementById("checkout-button").textContent = t.proceedBtn;
+
+  // Footer
+  document.querySelector(".footer a[href*='instagram']").textContent = t.footerInstagram;
+  document.querySelector(".footer a[href*='mailto']").textContent = t.footerEmail;
+  document.querySelector(".footer a[href*='wa.me']").textContent = t.footerWhatsapp;
+
+  // Auth Modal
+  document.getElementById("forgot-pass").textContent = t.forgotPass;
+  document.querySelector("#login-form h2").textContent = t.loginTitle;
+  document.querySelector("#signup-form h2").textContent = t.signupTitle;
+  document.querySelector("#reset-form h2").textContent = t.resetTitle;
+  document.getElementById("back-to-login").textContent = t.backToLogin;
+  document.getElementById("show-signup").textContent = t.signupSwitch;
+  document.getElementById("show-login").textContent = t.loginSwitch;
+
+  // Update profile menu if open
+  renderUserMenu(); 
+}
+
+// Language buttons
+document.getElementById("lang-en").addEventListener("click", () => { lang = "en"; document.documentElement.lang = "en"; updateTexts(); });
+document.getElementById("lang-ar").addEventListener("click", () => { lang = "ar"; document.documentElement.lang = "ar"; updateTexts(); });
+
+// Render user menu
+function renderUserMenu(){
+  const t = translations[lang];
+  const userMenu=document.getElementById("user-menu");
+  const user=JSON.parse(localStorage.getItem("loggedUser"));
+  if(user){
+    userMenu.innerHTML=`<div class="profile-container" id="profile-container">
+      <img src="profile-logo.png" alt="Profile">
+      <div class="profile-dropdown" id="profile-dropdown">
+        <div>👤 ${user.username}</div>
+        <div class="email">${user.email}</div>
+        <div id="logout">${t.profileLogout}</div>
+      </div>
+    </div>`;
+    const pc=document.getElementById("profile-container");
+    const pd=document.getElementById("profile-dropdown");
+    pc.addEventListener("click",()=>pd.classList.toggle("active"));
+    document.getElementById("logout").addEventListener("click",()=>{localStorage.removeItem("loggedUser");renderUserMenu();});
+  } else {
+    userMenu.innerHTML=`<div class="profile-container" id="profile-container">
+      <img src="profile-logo.png" alt="Profile">
+      <div class="profile-dropdown" id="profile-dropdown">
+        <div id="login-link">${t.profileLogin}</div>
+      </div>
+    </div>`;
+    const pc=document.getElementById("profile-container");
+    const pd=document.getElementById("profile-dropdown");
+    pc.addEventListener("click",()=>pd.classList.toggle("active"));
+    document.getElementById("login-link").addEventListener("click",()=>{authModal.classList.add("active");loginForm.style.display="block";signupForm.style.display="none";resetForm.style.display="none";});
+  }
+}
+
+// Initial render
+updateTexts();
+
+
+// Apply saved language on page load
+const savedLang = localStorage.getItem("lang") || "en";
+updateLanguage(savedLang);
+
+</script>
+
+
 <!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>emailjs.init("LUva89Ktxhzp_pdRq");</script>
@@ -192,29 +337,48 @@ checkoutBtn.addEventListener("click",()=>{
 });
 
 const userMenu=document.getElementById("user-menu");
-function renderUserMenu(){
-  const user=JSON.parse(localStorage.getItem("loggedUser"));
-  if(user){
-    userMenu.innerHTML=`<div class="profile-container" id="profile-container">
-      <img src="profile-logo.png" alt="Profile">
-      <div class="profile-dropdown" id="profile-dropdown">
-        <div>👤 ${user.username}</div>
-        <div class="email">${user.email}</div>
-        <div id="logout">Logout</div></div></div>`;
-    const pc=document.getElementById("profile-container");
-    const pd=document.getElementById("profile-dropdown");
-    pc.addEventListener("click",()=>pd.classList.toggle("active"));
-    document.getElementById("logout").addEventListener("click",()=>{localStorage.removeItem("loggedUser");renderUserMenu();});
+function renderUserMenu() {
+  const user = JSON.parse(localStorage.getItem("loggedUser"));
+  const lang = localStorage.getItem("lang") || "en";
+  const t = translations[lang];
+
+  if (user) {
+    userMenu.innerHTML = `
+      <div class="profile-container" id="profile-container">
+        <img src="profile-logo.png" alt="Profile">
+        <div class="profile-dropdown" id="profile-dropdown">
+          <div>👤 ${user.username}</div>
+          <div class="email">${user.email}</div>
+          <div id="logout">${t.profileLogout}</div>
+        </div>
+      </div>`;
+    const pc = document.getElementById("profile-container");
+    const pd = document.getElementById("profile-dropdown");
+    pc.addEventListener("click", () => pd.classList.toggle("active"));
+    document.getElementById("logout").addEventListener("click", () => {
+      localStorage.removeItem("loggedUser");
+      renderUserMenu();
+    });
   } else {
-    userMenu.innerHTML=`<div class="profile-container" id="profile-container">
-      <img src="profile-logo.png" alt="Profile">
-      <div class="profile-dropdown" id="profile-dropdown"><div id="login-link">Login / Sign Up</div></div></div>`;
-    const pc=document.getElementById("profile-container");
-    const pd=document.getElementById("profile-dropdown");
-    pc.addEventListener("click",()=>pd.classList.toggle("active"));
-    document.getElementById("login-link").addEventListener("click",()=>{authModal.classList.add("active");loginForm.style.display="block";signupForm.style.display="none";resetForm.style.display="none";});
+    userMenu.innerHTML = `
+      <div class="profile-container" id="profile-container">
+        <img src="profile-logo.png" alt="Profile">
+        <div class="profile-dropdown" id="profile-dropdown">
+          <div id="login-link">${t.profileLogin}</div>
+        </div>
+      </div>`;
+    const pc = document.getElementById("profile-container");
+    const pd = document.getElementById("profile-dropdown");
+    pc.addEventListener("click", () => pd.classList.toggle("active"));
+    document.getElementById("login-link").addEventListener("click", () => {
+      authModal.classList.add("active");
+      loginForm.style.display = "block";
+      signupForm.style.display = "none";
+      resetForm.style.display = "none";
+    });
   }
 }
+
 renderUserMenu();
 
 document.getElementById("close-modal").addEventListener("click",()=>authModal.classList.remove("active"));
